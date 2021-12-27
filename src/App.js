@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { TextField } from "@mui/material";
+import { Box } from "@mui/system";
+import { HowLongToBeatService } from "howlongtobeat";
+import React, { useState } from "react";
+import GameBox from "./GameBox";
 
-function App() {
+const hltbService = new HowLongToBeatService();
+
+const App = () => {
+  const [searchResults, setSearchResults] = useState([]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box padding={3}>
+      <TextField
+        label="Search..."
+        onInput={(e) =>
+          hltbService
+            .search(e.target.value)
+            .then((result) => setSearchResults(result))
+        }
+      />
+      <Box display={"flex"} flexWrap={"wrap"}>
+        {searchResults.map((gameData) => {
+          return <GameBox data={gameData} />;
+        })}
+      </Box>
+    </Box>
   );
-}
+};
 
 export default App;
