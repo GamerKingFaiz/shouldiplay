@@ -5,22 +5,37 @@ import NumberBox from "./NumberBox";
 
 const GameBox = ({ data }) => {
   const [openCriticGameData, setOpenCriticGameData] = useState();
+  const [gameMatched, setGameMatched] = useState();
 
   useEffect(() => {
     fetch(`https://api.opencritic.com/api/game/search?criteria=${data.name}`)
       .then((openCriticSearchResponse) => openCriticSearchResponse.json())
       .then((openCriticSearchData) => {
-        console.log(1, openCriticSearchData[0].id);
-        const openCriticId = openCriticSearchData[0].id;
-        fetch(`https://api.opencritic.com/api/game/${openCriticId}`)
+        fetch(
+          `https://api.opencritic.com/api/game/${openCriticSearchData[0].id}`
+        )
           .then((openCriticGame) => openCriticGame.json())
           .then((openCriticGameJson) =>
             setOpenCriticGameData(openCriticGameJson)
           );
       });
-  }, [data.name]);
+  }, [data]);
 
-  console.log(2, openCriticGameData);
+  useEffect(() => {
+    /**
+     * Comparing the name from the HowLongToBeat API(after stripping adjacent
+     * whitespace) to the name of the first result of the OpenCritic API (after
+     * removing everything except alphanumeric characters and whitespace)
+     */
+    data.name.replace(/\s+/g, " ").toLowerCase() ===
+    openCriticGameData?.name
+      .replace(/[^\w\s]|_/g, "")
+      .replace(/\s+/g, " ")
+      .toLowerCase()
+      ? setGameMatched(true)
+      : setGameMatched(false);
+  }, [openCriticGameData]);
+
   return (
     <Card sx={{ margin: 2, width: 500, display: "flex" }}>
       <CardMedia
@@ -44,7 +59,7 @@ const GameBox = ({ data }) => {
 
           <NumberBox
             value={
-              openCriticGameData?.topCriticScore > -1 ? (
+              gameMatched ? (
                 <>{Math.round(openCriticGameData.topCriticScore)}</>
               ) : (
                 <>N/A</>
@@ -81,9 +96,9 @@ const GameBox = ({ data }) => {
             href={`https://howlongtobeat.com/game?id=${data.id}`}
             value="HowLongToBeat"
           />{" "}
-          {openCriticGameData && (
+          {gameMatched && (
             <>
-              /{" "}
+              |{" "}
               <ExternalLink
                 href={`https://opencritic.com/game/${openCriticGameData.id}/${openCriticGameData.name}`}
                 value="OpenCritic"
