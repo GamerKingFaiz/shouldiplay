@@ -4,13 +4,13 @@ const GameBoxSkeleton = () => {
   return (
     <Box display={"flex"} flexWrap={"wrap"}>
       <Box margin={2}>
-        <Skeleton variant="rectangular" width={210} height={118} />
+        <Skeleton variant="rectangular" width={500} height={225} />
       </Box>
       <Box margin={2}>
-        <Skeleton variant="rectangular" width={210} height={118} />
+        <Skeleton variant="rectangular" width={500} height={225} />
       </Box>
       <Box margin={2}>
-        <Skeleton variant="rectangular" width={210} height={118} />
+        <Skeleton variant="rectangular" width={500} height={225} />
       </Box>
     </Box>
   );
