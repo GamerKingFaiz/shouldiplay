@@ -1,13 +1,22 @@
-import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
+  Skeleton,
+  Typography,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ExternalLink from "../ExternalLink";
 import NumberBox from "./NumberBox";
 
 const GameBox = ({ data }) => {
+  const [loading, setLoading] = useState(Boolean);
   const [openCriticGameData, setOpenCriticGameData] = useState();
-  const [gameMatched, setGameMatched] = useState();
+  const [gameMatched, setGameMatched] = useState(Boolean);
 
   useEffect(() => {
+    setLoading(true);
     fetch(`https://api.opencritic.com/api/game/search?criteria=${data.name}`)
       .then((openCriticSearchResponse) => openCriticSearchResponse.json())
       .then((openCriticSearchData) => {
@@ -15,9 +24,10 @@ const GameBox = ({ data }) => {
           `https://api.opencritic.com/api/game/${openCriticSearchData[0].id}`
         )
           .then((openCriticGame) => openCriticGame.json())
-          .then((openCriticGameJson) =>
-            setOpenCriticGameData(openCriticGameJson)
-          );
+          .then((openCriticGameJson) => {
+            setOpenCriticGameData(openCriticGameJson);
+            setLoading(false);
+          });
       });
   }, [data]);
 
@@ -57,38 +67,33 @@ const GameBox = ({ data }) => {
         <Box display={"flex"} justifyContent={"space-between"}>
           <Typography variant="h6">{data.name}</Typography>
 
-          <NumberBox
-            value={
-              gameMatched ? (
-                <>{Math.round(openCriticGameData.topCriticScore)}</>
-              ) : (
-                <>N/A</>
-              )
-            }
-            subtitle={"RATING"}
-            bgcolor={"secondary.dark"}
-          />
+          {loading ? (
+            <Skeleton variant="circular" width={40} height={40} />
+          ) : (
+            <NumberBox
+              value={
+                gameMatched ? (
+                  <>{Math.round(openCriticGameData.topCriticScore)}</>
+                ) : (
+                  <>N/A</>
+                )
+              }
+              subtitle={"RATING"}
+              bgcolor={"secondary.dark"}
+            />
+          )}
         </Box>
         {/* Times to beat */}
         <Box display={"flex"} justifyContent={"space-evenly"}>
-          <NumberBox
-            value={`${data.gameplayMain} hours`}
-            subtitle={"Main"}
-            bgcolor={"grey.800"}
-            borderColor={"divider"}
-          />
-          <NumberBox
-            value={`${data.gameplayMainExtra} hours`}
-            subtitle={"+Extras"}
-            bgcolor={"grey.800"}
-            borderColor={"divider"}
-          />
-          <NumberBox
-            value={`${data.gameplayCompletionist} hours`}
-            subtitle={"Complete"}
-            bgcolor={"grey.800"}
-            borderColor={"divider"}
-          />
+          {data.timeLabels.map((label, index) => (
+            <NumberBox
+              key={index}
+              value={`${data[label[0]]} hours`}
+              subtitle={label[1]}
+              bgcolor={"grey.800"}
+              borderColor={"divider"}
+            />
+          ))}
         </Box>
         {/* External Links */}
         <Typography variant="caption">
