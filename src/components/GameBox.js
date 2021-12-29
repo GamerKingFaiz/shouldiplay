@@ -72,7 +72,7 @@ const GameBox = ({ data }) => {
           ) : (
             <NumberBox
               value={
-                gameMatched ? (
+                (gameMatched && openCriticGameData.topCriticScore > -1) ? (
                   <>{Math.round(openCriticGameData.topCriticScore)}</>
                 ) : (
                   <>N/A</>

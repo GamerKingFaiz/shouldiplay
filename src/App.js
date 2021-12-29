@@ -1,17 +1,11 @@
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  Box,
-  FormControl,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-} from "@mui/material";
+import { AppBar, Box, Toolbar } from "@mui/material";
 import { HowLongToBeatService } from "howlongtobeat";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import GameBox from "./components/GameBox";
 import GameBoxSkeleton from "./components/GameBoxSkeleton";
+import AboutButton from "./components/navbar/AboutButton";
+import Logo from "./components/navbar/Logo";
+import SearchBar from "./components/navbar/SearchBar";
 
 const hltbService = new HowLongToBeatService();
 
@@ -19,6 +13,16 @@ const App = () => {
   const [searchInput, setSearchInput] = useState("");
   const [loading, setLoading] = useState(Boolean);
   const [searchResults, setSearchResults] = useState([]);
+
+  // Modal state and handlers
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  // Displays initial set of games on page load
+  useEffect(() => {
+    handleSearch("");
+  }, []);
 
   const handleChange = (event) => {
     if (event.keyCode === 13) {
@@ -39,33 +43,16 @@ const App = () => {
   };
 
   return (
-    <Box
-      padding={3}
-      display={"flex"}
-      flexDirection={"column"}
-      alignItems={"center"}
-    >
-      <FormControl variant="outlined">
-        <InputLabel htmlFor="sipSearchbar">Search...</InputLabel>
-        <OutlinedInput
-          id="sipSearchbar"
-          type="search"
-          endAdornment={
-            <InputAdornment positon="end">
-              <IconButton
-                aria-label="search for games"
-                edge="end"
-                onClick={handleChange}
-              >
-                <FontAwesomeIcon icon={faSearch} />
-              </IconButton>
-            </InputAdornment>
-          }
-          onKeyDown={handleChange}
-          onChange={(e) => setSearchInput(e.target.value)}
-          label="Search..."
-        />
-      </FormControl>
+    <Box display={"flex"} flexDirection={"column"}>
+      <AppBar position="sticky">
+        <Toolbar sx={{ justifyContent: "space-between" }}>
+          <Logo />
+
+          <SearchBar handleChange={handleChange} onChange={setSearchInput} />
+
+          <AboutButton onClick={handleOpen} open={open} onClose={handleClose} />
+        </Toolbar>
+      </AppBar>
 
       <Box display={"flex"} flexWrap={"wrap"} justifyContent={"center"}>
         {loading ? (
