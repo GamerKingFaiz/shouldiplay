@@ -41,6 +41,7 @@ const RatingSemiCircle = ({ matched, score }) => {
         fontWeight={500}
         marginTop={-3}
         textAlign={"center"}
+        color={matched ? theme.palette.text.primary : "#515970"}
       >
         RATING
       </Typography>
@@ -49,6 +50,7 @@ const RatingSemiCircle = ({ matched, score }) => {
         fontWeight={700}
         marginTop={mobile ? -0.5 : -1}
         textAlign={"center"}
+        color={matched ? "white" : "#515970"}
       >
         {matched ? (score > 0 ? score : "TBD") : "N/A"}
       </Typography>

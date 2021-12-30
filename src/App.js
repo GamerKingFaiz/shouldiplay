@@ -49,7 +49,14 @@ const App = () => {
 
   return (
     <Box display={"flex"} flexDirection={"column"}>
-      <AppBar position="sticky">
+      <AppBar
+        position="sticky"
+        sx={{
+          bgcolor: "#242A43",
+          backgroundImage: "none",
+          boxShadow: "0px 2px 20px 0px rgb(0 0 0 / 40%)",
+        }}
+      >
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <Logo />
           <SearchBar handleChange={handleChange} onChange={setSearchInput} />
@@ -57,6 +64,7 @@ const App = () => {
       </AppBar>
 
       <Box
+        p={mobile ? 1 : 2}
         display={"flex"}
         flexWrap={"wrap"}
         justifyContent={"center"}

@@ -1,7 +1,8 @@
-import { Box, Link, Typography } from "@mui/material";
+import { Box, Link, Typography, useTheme } from "@mui/material";
 import logo from "../../images/logo.png";
 
 const Logo = () => {
+  const theme = useTheme();
   return (
     <Link href="." underline="none" display={"flex"}>
       <img src={logo} height={50} alt="logo" />
@@ -9,7 +10,11 @@ const Logo = () => {
         <Typography fontSize={25} fontWeight={700}>
           Should I Play This?
         </Typography>
-        <Typography fontSize={12} fontWeight={500}>
+        <Typography
+          fontSize={12}
+          fontWeight={500}
+          color={theme.palette.text.primary}
+        >
           Data from OpenCritic & HowLongToBeat
         </Typography>
       </Box>

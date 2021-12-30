@@ -5,6 +5,7 @@ const useGameBoxStyles = makeStyles((theme) => ({
     margin: 8,
     width: 580,
     height: 175,
+    backgroundImage: "none",
     display: "flex",
     [theme.breakpoints.down("sm")]: {
       margin: 4,
@@ -34,6 +35,7 @@ const useGameBoxStyles = makeStyles((theme) => ({
     },
   },
   title: {
+    color: "white",
     fontSize: 20,
     fontWeight: 700,
     [theme.breakpoints.down("sm")]: {

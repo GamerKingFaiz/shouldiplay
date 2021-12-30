@@ -7,6 +7,13 @@ import reportWebVitals from "./reportWebVitals";
 const theme = createTheme({
   palette: {
     mode: "dark",
+    background: {
+      default: "#242A43",
+      paper: "rgba(255, 255, 255, 0.05)",
+    },
+    text: {
+      primary: "#DCDCFF",
+    },
   },
   breakpoints: {
     values: {
@@ -31,40 +38,11 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           color: "white",
-        }
-      }
-    }
-  }
+        },
+      },
+    },
+  },
 });
-
-// const theme = createTheme({
-//   typography: {
-//     fontFamily: [
-//       "Montserrat",
-//       "Roboto",
-//       "Helvetica",
-//       "Arial",
-//       "sans-serif",
-//     ].join(","),
-//   },
-//   palette: {
-//     type: "dark",
-//     primary: {
-//       main: "#242A43",
-//     },
-//     // secondary: {
-//     //   main: "#242A43",
-//     // },
-//     text: {
-//       primary: "#ffffff",
-//       secondary: "#DCDCFF",
-//     },
-//     background: {
-//       default: "#242A43",
-//       paper: "#FFFFFF0D",
-//     },
-//   },
-// });
 
 ReactDOM.render(
   <React.StrictMode>

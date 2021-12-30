@@ -33,12 +33,17 @@ const GameHours = ({ value, subtitle, gameId }) => {
         underline="none"
         textAlign="center"
       >
-        <Typography fontSize={mobile ? 9 : 11} fontWeight={500}>
+        <Typography
+          fontSize={mobile ? 9 : 11}
+          fontWeight={500}
+          color={theme.palette.text.primary}
+        >
           {subtitle}
         </Typography>
         <Typography
           fontSize={mobile ? 15 : 20}
           fontWeight={700}
+          color={theme.palette.text.primary}
         >
           {value}
         </Typography>
