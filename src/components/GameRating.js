@@ -8,7 +8,7 @@ import "react-circular-progressbar/dist/styles.css";
 
 const RatingSemiCircle = ({ matched, score }) => {
   const theme = useTheme();
-  const mobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const mobile = useMediaQuery(theme.breakpoints.down("mobileCard"));
 
   const ratingColor = (score) => {
     switch (true) {
@@ -63,9 +63,9 @@ const GameRating = ({ matched, ocgd }) => {
 
   return (
     <Box
-      width={{ xs: 80, sm: 130 }}
-      height={{ xs: 40, sm: 70 }}
-      marginBottom={{ xs: 2, sm: 0 }}
+      width={{ xs: 80, mobileCard: 130 }}
+      height={{ xs: 40, mobileCard: 70 }}
+      marginBottom={{ xs: 2, mobileCard: 0 }}
     >
       {matched ? (
         <Link

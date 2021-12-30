@@ -65,8 +65,9 @@ const GameBox = ({ data }) => {
         <Box
           display={"flex"}
           justifyContent={"space-between"}
-          alignItems={{ xs: "center", sm: "flex-end" }}
-          flexDirection={{ xs: "column", sm: "row" }}
+          alignItems={{ xs: "center", mobileCard: "flex-end" }}
+          flexDirection={{ xs: "column", mobileCard: "row" }}
+          width={{xs: "100%", sm: "432px"}}
         >
           {loading ? (
             <Skeleton className={classes.skeleton} />

@@ -7,9 +7,10 @@ const useGameBoxStyles = makeStyles((theme) => ({
     height: 175,
     backgroundImage: "none",
     display: "flex",
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("mobileCard")]: {
       margin: 4,
-      width: "300px",
+      width: "100%",
+      minWidth: "320px",
       height: "150px",
     },
   },
@@ -25,7 +26,7 @@ const useGameBoxStyles = makeStyles((theme) => ({
     justifyContent: "space-evenly",
     width: "100%",
     "&:last-child": { paddingBottom: 16 },
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("mobileCard")]: {
       padding: 8,
       alignItems: "center",
       justifyContent: "space-around",
@@ -38,14 +39,14 @@ const useGameBoxStyles = makeStyles((theme) => ({
     color: "white",
     fontSize: 20,
     fontWeight: 700,
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("mobileCard")]: {
       fontSize: 12,
     },
   },
   skeleton: {
     width: 130,
     height: 70,
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("mobileCard")]: {
       width: 80,
       height: 40,
     },
@@ -55,10 +56,15 @@ const useGameBoxStyles = makeStyles((theme) => ({
     marginLeft: 32,
     display: "flex",
     justifyContent: "flex-start",
-    [theme.breakpoints.down("sm")]: {
-      width: 184,
+    [theme.breakpoints.down("mobileCard")]: {
+      width: "100%",
       marginLeft: 0,
       justifyContent: "center",
+    },
+    [theme.breakpoints.between("mobileCard", "sm")]: {
+      width: "auto",
+      marginLeft: 8,
+      flexBasis: "70%",
     },
   },
 }));

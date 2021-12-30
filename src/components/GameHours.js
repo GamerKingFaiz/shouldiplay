@@ -2,7 +2,7 @@ import { Box, Link, Typography, useMediaQuery, useTheme } from "@mui/material";
 
 const GameHours = ({ value, subtitle, gameId }) => {
   const theme = useTheme();
-  const mobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const mobile = useMediaQuery(theme.breakpoints.down("mobileCard"));
 
   switch (subtitle) {
     case "Main Story":
