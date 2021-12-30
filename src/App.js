@@ -70,7 +70,7 @@ const App = () => {
           })
         ) : (
           <Typography variant="h5" padding={3}>
-            No Results...
+            No Results
           </Typography>
         )}
       </Box>
