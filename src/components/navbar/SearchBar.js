@@ -12,7 +12,7 @@ import React from "react";
 const SearchBar = ({ handleChange, onChange }) => {
   return (
     <FormControl variant="outlined" sx={{ margin: "16px", minWidth: "30%" }}>
-      <InputLabel htmlFor="sipSearchbar">Search...</InputLabel>
+      <InputLabel htmlFor="sipSearchbar">Search for games...</InputLabel>
       <OutlinedInput
         id="sipSearchbar"
         type="search"
@@ -29,7 +29,7 @@ const SearchBar = ({ handleChange, onChange }) => {
         }
         onKeyDown={handleChange}
         onChange={(e) => onChange(e.target.value)}
-        label="Search..."
+        label="Search for games..."
       />
     </FormControl>
   );
