@@ -15,6 +15,8 @@ const Footer = () => {
           href="https://www.paypal.com/donate/?business=JDJJYA8RANRHG&no_recurring=0&item_name=This+site+is+created+in+my+free+time+and+doesn%27t+run+ads.+A+donation+helps+pay+for+the+site%27s+maintenance+and+server+costs.&currency_code=USD"
           target="_blank"
           rel="noopener"
+          underline="none"
+          fontWeight={700}
         >
           PayPal
         </Link>{" "}
@@ -24,6 +26,8 @@ const Footer = () => {
           href="https://github.com/GamerKingFaiz/shouldiplay"
           target="_blank"
           rel="noopener"
+          underline="none"
+          fontWeight={700}
         >
           GitHub
         </Link>{" "}
@@ -32,6 +36,8 @@ const Footer = () => {
           href="https://github.com/GamerKingFaiz/shouldiplay/issues"
           target="_blank"
           rel="noopener"
+          underline="none"
+          fontWeight={700}
         >
           Report a bug
         </Link>{" "}
@@ -40,19 +46,33 @@ const Footer = () => {
           href="https://twitter.com/gamerkingfaiz"
           target="_blank"
           rel="noopener"
+          underline="none"
+          fontWeight={700}
         >
           Tweet Me
         </Link>
         <br />
         <br />
         Ratings data sourced from{" "}
-        <Link href="https://opencritic.com/" target="_blank" rel="noopener">
+        <Link
+          href="https://opencritic.com/"
+          target="_blank"
+          rel="noopener"
+          underline="none"
+          fontWeight={700}
+        >
           OpenCritic
         </Link>
         .
         <br />
         Hours data sourced from{" "}
-        <Link href="https://howlongtobeat.com/" target="_blank" rel="noopener">
+        <Link
+          href="https://howlongtobeat.com/"
+          target="_blank"
+          rel="noopener"
+          underline="none"
+          fontWeight={700}
+        >
           HowLongToBeat
         </Link>
         .

@@ -26,6 +26,15 @@ const theme = createTheme({
       "sans-serif",
     ].join(","),
   },
+  components: {
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          color: "white",
+        }
+      }
+    }
+  }
 });
 
 // const theme = createTheme({

@@ -3,7 +3,7 @@ import { Box, Link, Typography, useMediaQuery, useTheme } from "@mui/material";
 const GameHours = ({ value, subtitle, gameId }) => {
   const theme = useTheme();
   const mobile = useMediaQuery(theme.breakpoints.down("sm"));
-console.log(theme);
+
   switch (subtitle) {
     case "Main Story":
       subtitle = "MAIN";
@@ -30,18 +30,15 @@ console.log(theme);
         href={`https://howlongtobeat.com/game?id=${gameId}`}
         target="_blank"
         rel="noopener"
+        underline="none"
         textAlign="center"
       >
-        <Typography
-          fontSize={mobile ? 9 : 11}
-          fontWeight={500}
-        >
+        <Typography fontSize={mobile ? 9 : 11} fontWeight={500}>
           {subtitle}
         </Typography>
         <Typography
           fontSize={mobile ? 15 : 20}
           fontWeight={700}
-          // textAlign="center"
         >
           {value}
         </Typography>

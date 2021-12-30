@@ -3,10 +3,8 @@ import logo from "../../images/logo.png";
 
 const Logo = () => {
   return (
-    <Box display={"flex"}>
-      <Link href=".">
-        <img src={logo} height={50} alt="logo" />
-      </Link>
+    <Link href="." underline="none" display={"flex"}>
+      <img src={logo} height={50} alt="logo" />
       <Box marginLeft={2} display={{ xs: "none", sm: "block" }}>
         <Typography fontSize={25} fontWeight={700}>
           Should I Play This?
@@ -15,7 +13,7 @@ const Logo = () => {
           Data from OpenCritic & HowLongToBeat
         </Typography>
       </Box>
-    </Box>
+    </Link>
   );
 };
 
