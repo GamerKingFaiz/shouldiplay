@@ -29,7 +29,7 @@ const RatingSemiCircle = ({ matched, score }) => {
     <CircularProgressbarWithChildren
       value={matched ? score : 0}
       circleRatio={0.5}
-      strokeWidth={mobile ? 5 : 10}
+      strokeWidth={mobile ? 5 : 9}
       styles={buildStyles({
         rotation: 0.75,
         pathColor: ratingColor(score),
