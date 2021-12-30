@@ -27,7 +27,7 @@ const useGameBoxStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       padding: 8,
       alignItems: "center",
-      justifyContent: "space-between",
+      justifyContent: "space-around",
       "&:last-child": {
         paddingBottom: 8,
       },
@@ -48,12 +48,15 @@ const useGameBoxStyles = makeStyles((theme) => ({
       height: 40,
     },
   },
-  hourCollection: {
-    width: 300,
+  hoursCollection: {
+    width: 268,
+    marginLeft: 32,
     display: "flex",
-    justifyContent: "space-around",
+    justifyContent: "flex-start",
     [theme.breakpoints.down("sm")]: {
-      width: 168,
+      width: 184,
+      marginLeft: 0,
+      justifyContent: "center",
     },
   },
 }));

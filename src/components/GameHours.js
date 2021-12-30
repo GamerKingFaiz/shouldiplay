@@ -1,9 +1,9 @@
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Link, Typography, useMediaQuery, useTheme } from "@mui/material";
 
-const GameHours = ({ value, subtitle }) => {
+const GameHours = ({ value, subtitle, gameId }) => {
   const theme = useTheme();
   const mobile = useMediaQuery(theme.breakpoints.down("sm"));
-
+console.log(theme);
   switch (subtitle) {
     case "Main Story":
       subtitle = "MAIN";
@@ -23,14 +23,29 @@ const GameHours = ({ value, subtitle }) => {
       display={"flex"}
       flexDirection={"column"}
       justifyContent={"center"}
-      alignItems={"flex-start"}
+      alignItems={{ xs: "center", sm: "flex-start" }}
+      flexBasis={"33.3333%"}
     >
-      <Typography fontSize={mobile ? 9 : 11} fontWeight={500}>
-        {subtitle}
-      </Typography>
-      <Typography fontSize={mobile ? 15 : 20} fontWeight={700}>
-        {value}
-      </Typography>
+      <Link
+        href={`https://howlongtobeat.com/game?id=${gameId}`}
+        target="_blank"
+        rel="noopener"
+        textAlign="center"
+      >
+        <Typography
+          fontSize={mobile ? 9 : 11}
+          fontWeight={500}
+        >
+          {subtitle}
+        </Typography>
+        <Typography
+          fontSize={mobile ? 15 : 20}
+          fontWeight={700}
+          // textAlign="center"
+        >
+          {value}
+        </Typography>
+      </Link>
     </Box>
   );
 };

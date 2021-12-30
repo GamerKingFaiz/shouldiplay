@@ -3,7 +3,6 @@ import {
   Card,
   CardContent,
   CardMedia,
-  Link,
   Skeleton,
   Typography,
 } from "@mui/material";
@@ -74,20 +73,16 @@ const GameBox = ({ data }) => {
           ) : (
             <GameRating matched={gameMatched} ocgd={openCriticGameData} />
           )}
-          <Link
-            href={`https://howlongtobeat.com/game?id=${data.id}`}
-            target="_blank"
-            rel="noopener"
-            className={classes.hourCollection}
-          >
+          <Box className={classes.hoursCollection}>
             {data.timeLabels.map((label, index) => (
               <GameHours
                 key={index}
                 value={`${Math.round(data[label[0]])}h`}
                 subtitle={label[1]}
+                gameId={data.id}
               />
             ))}
-          </Link>
+          </Box>
         </Box>
       </CardContent>
     </Card>
