@@ -66,7 +66,11 @@ const GameRating = ({ matched, ocgd }) => {
       marginBottom={{ xs: 2, sm: 0 }}
     >
       {matched ? (
-        <Link href={`https://opencritic.com/game/${ocgd.id}/${ocgd.name}`}>
+        <Link
+          href={`https://opencritic.com/game/${ocgd.id}/${ocgd.name}`}
+          target="_blank"
+          rel="noopener"
+        >
           <RatingSemiCircle score={score} matched={matched} />
         </Link>
       ) : (

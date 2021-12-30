@@ -76,6 +76,8 @@ const GameBox = ({ data }) => {
           )}
           <Link
             href={`https://howlongtobeat.com/game?id=${data.id}`}
+            target="_blank"
+            rel="noopener"
             className={classes.hourCollection}
           >
             {data.timeLabels.map((label, index) => (
