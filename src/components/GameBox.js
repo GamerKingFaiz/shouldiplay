@@ -3,17 +3,21 @@ import {
   Card,
   CardContent,
   CardMedia,
+  Link,
   Skeleton,
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import ExternalLink from "../ExternalLink";
-import NumberBox from "./NumberBox";
+import useGameBoxStyles from "../styles/useGameBoxStyles";
+import GameHours from "./GameHours";
+import GameRating from "./GameRating";
 
 const GameBox = ({ data }) => {
   const [loading, setLoading] = useState(Boolean);
   const [openCriticGameData, setOpenCriticGameData] = useState();
   const [gameMatched, setGameMatched] = useState(Boolean);
+
+  const classes = useGameBoxStyles();
 
   useEffect(() => {
     setLoading(true);
@@ -44,73 +48,45 @@ const GameBox = ({ data }) => {
       .toLowerCase()
       ? setGameMatched(true)
       : setGameMatched(false);
-  }, [openCriticGameData]);
+  }, [data.name, openCriticGameData]);
 
   return (
-    <Card sx={{ margin: 2, width: 500, display: "flex" }}>
+    <Card className={classes.card}>
       <CardMedia
         component="img"
         image={`https://howlongtobeat.com${data.imageUrl}`}
         alt="Game cover"
-        sx={{ width: 150 }}
+        className={classes.cardMedia}
       />
-      <CardContent
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          width: "100%",
-          "&:last-child": { paddingBottom: 2 },
-        }}
-      >
-        {/* Title and Rating */}
-        <Box display={"flex"} justifyContent={"space-between"}>
-          <Typography variant="h6">{data.name}</Typography>
+      <CardContent className={classes.cardContent}>
+        {/* Title */}
+        <Typography className={classes.title}>{data.name}</Typography>
 
+        {/* Rating and Times to beat */}
+        <Box
+          display={"flex"}
+          justifyContent={"space-between"}
+          alignItems={{ xs: "center", sm: "flex-end" }}
+          flexDirection={{ xs: "column", sm: "row" }}
+        >
           {loading ? (
-            <Skeleton variant="circular" width={40} height={40} />
+            <Skeleton className={classes.skeleton} />
           ) : (
-            <NumberBox
-              value={
-                (gameMatched && openCriticGameData.topCriticScore > -1) ? (
-                  <>{Math.round(openCriticGameData.topCriticScore)}</>
-                ) : (
-                  <>N/A</>
-                )
-              }
-              subtitle={"RATING"}
-              bgcolor={"secondary.dark"}
-            />
+            <GameRating matched={gameMatched} ocgd={openCriticGameData} />
           )}
-        </Box>
-        {/* Times to beat */}
-        <Box display={"flex"} justifyContent={"space-evenly"}>
-          {data.timeLabels.map((label, index) => (
-            <NumberBox
-              key={index}
-              value={`${data[label[0]]} hours`}
-              subtitle={label[1]}
-              bgcolor={"grey.800"}
-              borderColor={"divider"}
-            />
-          ))}
-        </Box>
-        {/* External Links */}
-        <Typography variant="caption">
-          <ExternalLink
+          <Link
             href={`https://howlongtobeat.com/game?id=${data.id}`}
-            value="HowLongToBeat"
-          />{" "}
-          {gameMatched && (
-            <>
-              |{" "}
-              <ExternalLink
-                href={`https://opencritic.com/game/${openCriticGameData.id}/${openCriticGameData.name}`}
-                value="OpenCritic"
+            className={classes.hourCollection}
+          >
+            {data.timeLabels.map((label, index) => (
+              <GameHours
+                key={index}
+                value={`${Math.round(data[label[0]])}h`}
+                subtitle={label[1]}
               />
-            </>
-          )}
-        </Typography>
+            ))}
+          </Link>
+        </Box>
       </CardContent>
     </Card>
   );

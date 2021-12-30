@@ -1,18 +1,25 @@
-import { Box, Skeleton } from "@mui/material";
+import { Box, Skeleton, useMediaQuery, useTheme } from "@mui/material";
 
 const GameBoxSkeleton = () => {
+  const theme = useTheme();
+  const mobile = useMediaQuery(theme.breakpoints.down("sm"));
   return (
-    <Box display={"flex"} flexWrap={"wrap"}>
+    <>
       <Box margin={2}>
-        <Skeleton variant="rectangular" width={500} height={225} />
+        <Skeleton
+          variant="rectangular"
+          width={mobile ? 300 : 580}
+          height={mobile ? 150 : 175}
+        />
       </Box>
       <Box margin={2}>
-        <Skeleton variant="rectangular" width={500} height={225} />
+        <Skeleton
+          variant="rectangular"
+          width={mobile ? 300 : 580}
+          height={mobile ? 150 : 175}
+        />
       </Box>
-      <Box margin={2}>
-        <Skeleton variant="rectangular" width={500} height={225} />
-      </Box>
-    </Box>
+    </>
   );
 };
 

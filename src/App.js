@@ -1,23 +1,28 @@
-import { AppBar, Box, Toolbar } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Divider,
+  Toolbar,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { HowLongToBeatService } from "howlongtobeat";
 import React, { useEffect, useState } from "react";
+import Footer from "./components/Footer";
 import GameBox from "./components/GameBox";
 import GameBoxSkeleton from "./components/GameBoxSkeleton";
-import AboutButton from "./components/navbar/AboutButton";
 import Logo from "./components/navbar/Logo";
 import SearchBar from "./components/navbar/SearchBar";
 
 const hltbService = new HowLongToBeatService();
 
 const App = () => {
+  const theme = useTheme();
+  const mobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [searchInput, setSearchInput] = useState("");
   const [loading, setLoading] = useState(Boolean);
   const [searchResults, setSearchResults] = useState([]);
-
-  // Modal state and handlers
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   // Displays initial set of games on page load
   useEffect(() => {
@@ -47,22 +52,32 @@ const App = () => {
       <AppBar position="sticky">
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <Logo />
-
           <SearchBar handleChange={handleChange} onChange={setSearchInput} />
-
-          <AboutButton onClick={handleOpen} open={open} onClose={handleClose} />
         </Toolbar>
       </AppBar>
 
-      <Box display={"flex"} flexWrap={"wrap"} justifyContent={"center"}>
+      <Box
+        display={"flex"}
+        flexWrap={"wrap"}
+        justifyContent={"center"}
+        minHeight={mobile ? "calc(100vh - 313px)" : "calc(100vh - 289px)"}
+      >
         {loading ? (
           <GameBoxSkeleton />
-        ) : (
+        ) : searchResults.length ? (
           searchResults.map((gameData, index) => {
             return <GameBox data={gameData} key={index} />;
           })
+        ) : (
+          <Typography variant="h5" padding={3}>
+            No Results...
+          </Typography>
         )}
       </Box>
+
+      <Divider flexItem />
+
+      <Footer />
     </Box>
   );
 };
