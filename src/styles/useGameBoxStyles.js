@@ -2,12 +2,12 @@ import { makeStyles } from "@mui/styles";
 
 const useGameBoxStyles = makeStyles((theme) => ({
   card: {
-    margin: 16,
+    margin: 8,
     width: 580,
     height: 175,
     display: "flex",
     [theme.breakpoints.down("sm")]: {
-      margin: 8,
+      margin: 4,
       width: "300px",
       height: "150px",
     },

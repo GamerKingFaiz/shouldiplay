@@ -60,6 +60,7 @@ const App = () => {
         display={"flex"}
         flexWrap={"wrap"}
         justifyContent={"center"}
+        alignContent={"flex-start"}
         minHeight={mobile ? "calc(100vh - 313px)" : "calc(100vh - 289px)"}
       >
         {loading ? (
