@@ -43,6 +43,7 @@ const useGameBoxStyles = makeStyles((theme) => ({
     fontWeight: 700,
     [theme.breakpoints.down("mobileCard")]: {
       fontSize: 12,
+      textAlign: "center",
     },
   },
   skeleton: {
