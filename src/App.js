@@ -54,7 +54,7 @@ const App = () => {
         sx={{
           bgcolor: "#242A43",
           backgroundImage: "none",
-          boxShadow: "0px 2px 20px 0px rgb(0 0 0 / 40%)",
+          boxShadow: "0px 2px 40px 0px rgb(0 0 0 / 40%)",
         }}
       >
         <Toolbar sx={{ justifyContent: "space-between" }}>
@@ -64,12 +64,16 @@ const App = () => {
       </AppBar>
 
       <Box
-        p={mobile ? 1 : 2}
+        p={mobile ? "8px 8px 32px 8px" : "16px 16px 32px 16px"}
         display={"flex"}
         flexWrap={"wrap"}
         justifyContent={"center"}
         alignContent={"flex-start"}
-        minHeight={mobile ? "calc(100vh - 313px)" : "calc(100vh - 289px)"}
+        minHeight={{
+          xs: "calc(100vh - 342px)",
+          mobileCard: "calc(100vh - 345px)",
+          sm: "calc(100vh - 321px)",
+        }}
       >
         {loading ? (
           <GameBoxSkeleton />

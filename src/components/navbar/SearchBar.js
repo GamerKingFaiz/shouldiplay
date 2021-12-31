@@ -6,17 +6,22 @@ import {
   InputAdornment,
   InputLabel,
   OutlinedInput,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React from "react";
 
 const useStyles = makeStyles((theme) => ({
   form: {
-    margin: 16,
+    margin: "16px 0px 16px 16px",
     minWidth: "30%",
     "& .MuiInputLabel-outlined.Mui-focused": {
       color: "#DCDCFF",
       marginLeft: -8,
+      [theme.breakpoints.down("mobileCard")]: {
+        marginLeft: 0,
+      },
     },
     "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
       borderColor: "#DCDCFF",
@@ -28,13 +33,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SearchBar = ({ handleChange, onChange }) => {
+  const theme = useTheme();
+  const mobile = useMediaQuery(theme.breakpoints.down("mobileCard"));
+
   const classes = useStyles();
 
   return (
     <FormControl variant="outlined" className={classes.form}>
       <InputLabel
         htmlFor="sipSearchbar"
-        sx={{ color: "rgba(220, 220, 255, .7)" }}
+        sx={{
+          color: "rgba(220, 220, 255, .7)",
+          fontSize: mobile ? 14 : "1rem",
+          lineHeight: mobile ? "1.6em" : "1.4375em",
+        }}
       >
         Search for games...
       </InputLabel>

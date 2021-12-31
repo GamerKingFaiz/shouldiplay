@@ -1,12 +1,15 @@
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link, Typography } from "@mui/material";
+import { Link, Typography, useMediaQuery, useTheme } from "@mui/material";
 import React from "react";
 
 const Footer = () => {
+  const theme = useTheme();
+  const mobile = useMediaQuery(theme.breakpoints.down("mobileCard"));
+
   return (
-    <footer style={{ textAlign: "center", padding: "16px" }}>
-      <Typography>
+    <footer style={{ textAlign: "center", padding: "32px 16px" }}>
+      <Typography fontSize={mobile ? 14 : "1rem"}>
         Made with <FontAwesomeIcon icon={faHeart} /> by Faiz
         <br />
         <br />
