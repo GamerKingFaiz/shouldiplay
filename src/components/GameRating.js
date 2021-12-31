@@ -5,6 +5,7 @@ import {
   CircularProgressbarWithChildren,
 } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import ga from "../utils/gaLink";
 
 const RatingSemiCircle = ({ matched, score }) => {
   const theme = useTheme();
@@ -73,6 +74,7 @@ const GameRating = ({ matched, ocgd }) => {
           target="_blank"
           rel="noopener"
           underline="none"
+          onMouseDown={() => ga("opencritic_rating")}
         >
           <RatingSemiCircle score={score} matched={matched} />
         </Link>

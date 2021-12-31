@@ -14,6 +14,7 @@ import GameBox from "./components/GameBox";
 import GameBoxSkeleton from "./components/GameBoxSkeleton";
 import Logo from "./components/navbar/Logo";
 import SearchBar from "./components/navbar/SearchBar";
+import gaSearchKey from "./utils/gaSearchKey";
 
 const hltbService = new HowLongToBeatService();
 
@@ -33,14 +34,19 @@ const App = () => {
     if (event.keyCode === 13) {
       // Enter key
       handleSearch(event.target.value);
+      gaSearchKey("enter");
     } else if (event.type === "click") {
       // Mouse click
       handleSearch(searchInput);
+      gaSearchKey("click");
     }
   };
 
   const handleSearch = (value) => {
     setLoading(true);
+    window.gtag("event", "search", {
+      search_term: value,
+    });
     hltbService.search(value).then((result) => {
       setLoading(false);
       setSearchResults(result);

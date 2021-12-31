@@ -2,6 +2,7 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, Typography, useMediaQuery, useTheme } from "@mui/material";
 import React from "react";
+import ga from "../utils/gaLink";
 
 const Footer = () => {
   const theme = useTheme();
@@ -20,6 +21,7 @@ const Footer = () => {
           rel="noopener"
           underline="none"
           fontWeight={700}
+          onMouseDown={() => ga("paypal")}
         >
           PayPal
         </Link>{" "}
@@ -31,6 +33,7 @@ const Footer = () => {
           rel="noopener"
           underline="none"
           fontWeight={700}
+          onMouseDown={() => ga("github")}
         >
           GitHub
         </Link>{" "}
@@ -41,6 +44,7 @@ const Footer = () => {
           rel="noopener"
           underline="none"
           fontWeight={700}
+          onMouseDown={() => ga("github_issue")}
         >
           Report a bug
         </Link>{" "}
@@ -51,6 +55,7 @@ const Footer = () => {
           rel="noopener"
           underline="none"
           fontWeight={700}
+          onMouseDown={() => ga("twitter")}
         >
           Tweet Me
         </Link>
@@ -63,6 +68,7 @@ const Footer = () => {
           rel="noopener"
           underline="none"
           fontWeight={700}
+          onMouseDown={() => ga("opencritic_footer")}
         >
           OpenCritic
         </Link>
@@ -75,6 +81,7 @@ const Footer = () => {
           rel="noopener"
           underline="none"
           fontWeight={700}
+          onMouseDown={() => ga("howlongtobeat_footer")}
         >
           HowLongToBeat
         </Link>
