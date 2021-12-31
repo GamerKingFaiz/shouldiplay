@@ -6,7 +6,9 @@ const useGameBoxStyles = makeStyles((theme) => ({
     width: 580,
     height: 175,
     backgroundImage: "none",
+    borderRadius: 10,
     display: "flex",
+    boxShadow: "none",
     [theme.breakpoints.down("mobileCard")]: {
       margin: 4,
       width: "100%",
