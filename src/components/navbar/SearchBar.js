@@ -7,11 +7,12 @@ import {
   InputLabel,
   OutlinedInput,
   useMediaQuery,
-  useTheme,
+  useTheme
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React from "react";
 
+// Class names from https://stackoverflow.com/questions/58963242/change-border-color-on-material-ui-textfield
 const useStyles = makeStyles((theme) => ({
   form: {
     margin: "16px 0px 16px 16px",
