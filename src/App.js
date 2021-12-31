@@ -26,7 +26,7 @@ const App = () => {
 
   // Displays initial set of games on page load
   useEffect(() => {
-    handleSearch("");
+    searchInput ? handleSearch(searchInput) : handleSearch("");
   }, []);
 
   const handleChange = (event) => {
