@@ -29,7 +29,7 @@ const RatingSemiCircle = ({ matched, score }) => {
     <CircularProgressbarWithChildren
       value={matched ? score : 0}
       circleRatio={0.5}
-      strokeWidth={mobile ? 5 : 9}
+      strokeWidth={8}
       styles={buildStyles({
         rotation: 0.75,
         pathColor: ratingColor(score),
@@ -39,7 +39,7 @@ const RatingSemiCircle = ({ matched, score }) => {
       <Typography
         fontSize={mobile ? 9 : 11}
         fontWeight={500}
-        marginTop={-3}
+        marginTop={mobile ? "-19px" : -3}
         textAlign={"center"}
         color={matched ? theme.palette.text.primary : "#515970"}
       >
