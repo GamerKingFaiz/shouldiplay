@@ -7,7 +7,7 @@ import {
   InputLabel,
   OutlinedInput,
   useMediaQuery,
-  useTheme
+  useTheme,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React from "react";
@@ -17,12 +17,14 @@ const useStyles = makeStyles((theme) => ({
   form: {
     margin: "16px 0px 16px 16px",
     minWidth: "30%",
-    "& .MuiInputLabel-outlined.Mui-focused": {
-      color: "#DCDCFF",
+    "& .MuiInputLabel-outlined.Mui-focused, .MuiInputLabel-outlined": {
       marginLeft: -8,
       [theme.breakpoints.down("mobileCard")]: {
         marginLeft: 0,
       },
+    },
+    "& .MuiInputLabel-outlined.Mui-focused": {
+      color: "#DCDCFF",
     },
     "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
       borderColor: "#DCDCFF",
