@@ -1,7 +1,7 @@
-const gaSearchKey = (label) => {
+const gaSearchKey = (label: string) => {
   window.gtag("event", "search_key", {
     event_category: "engagement",
-    event_label: label,
+    event_label: label
   });
 };
 

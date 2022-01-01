@@ -4,34 +4,45 @@ import {
   CardContent,
   CardMedia,
   Skeleton,
-  Typography,
+  Typography
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
+
 import useGameBoxStyles from "../styles/useGameBoxStyles";
 import GameHours from "./GameHours";
 import GameRating from "./GameRating";
+import { httpRequest } from "utils/http";
+import { HowLongToBeatEntry } from "howlongtobeat";
 
-const GameBox = ({ data }) => {
+interface Props {
+  data: HowLongToBeatEntry;
+}
+
+type TimeLabelKeys =
+  | "gameplayMain"
+  | "gameplayMainExtra"
+  | "gameplayCompletionist";
+
+const GameBox = ({ data }: Props) => {
   const [loading, setLoading] = useState(Boolean);
-  const [openCriticGameData, setOpenCriticGameData] = useState();
+  const [openCriticGameData, setOpenCriticGameData] = useState<
+    GameSummary | undefined
+  >();
   const [gameMatched, setGameMatched] = useState(Boolean);
 
   const classes = useGameBoxStyles();
-
   useEffect(() => {
     setLoading(true);
-    fetch(`https://api.opencritic.com/api/game/search?criteria=${data.name}`)
-      .then((openCriticSearchResponse) => openCriticSearchResponse.json())
-      .then((openCriticSearchData) => {
-        fetch(
-          `https://api.opencritic.com/api/game/${openCriticSearchData[0].id}`
-        )
-          .then((openCriticGame) => openCriticGame.json())
-          .then((openCriticGameJson) => {
-            setOpenCriticGameData(openCriticGameJson);
-            setLoading(false);
-          });
+    httpRequest<CriteriaResult[]>(
+      `https://api.opencritic.com/api/game/search?criteria=${data.name}`
+    ).then(res => {
+      httpRequest<GameSummary>(
+        `https://api.opencritic.com/api/game/${res[0].id}`
+      ).then(summary => {
+        setOpenCriticGameData(summary);
+        setLoading(false);
       });
+    });
   }, [data]);
 
   useEffect(() => {
@@ -78,7 +89,7 @@ const GameBox = ({ data }) => {
             {data.timeLabels.map((label, index) => (
               <GameHours
                 key={index}
-                value={`${Math.round(data[label[0]])}h`}
+                value={`${Math.round(data[label[0] as TimeLabelKeys])}h`}
                 subtitle={label[1]}
                 gameId={data.id}
               />

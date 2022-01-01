@@ -1,5 +1,4 @@
 import { Box, Link, Typography, useTheme } from "@mui/material";
-import logo from "../../images/logo.png";
 import ga from "../../utils/gaLink";
 
 const Logo = () => {
@@ -12,7 +11,7 @@ const Logo = () => {
       display={"flex"}
       onMouseDown={() => ga("logo")}
     >
-      <img src={logo} height={50} alt="logo" />
+      <img src={"images/logo.png"} height={50} alt="logo" />
       <Box marginLeft={2} display={{ xs: "none", sm: "block" }}>
         <Typography fontSize={25} fontWeight={700}>
           Should I Play This?

@@ -1,7 +1,13 @@
 import { Box, Link, Typography, useMediaQuery, useTheme } from "@mui/material";
 import ga from "../utils/gaLink";
 
-const GameHours = ({ value, subtitle, gameId }) => {
+interface Props {
+  value: string;
+  subtitle: string;
+  gameId: string;
+}
+
+const GameHours = ({ value, subtitle, gameId }: Props) => {
   const theme = useTheme();
   const mobile = useMediaQuery(theme.breakpoints.down("mobileCard"));
 

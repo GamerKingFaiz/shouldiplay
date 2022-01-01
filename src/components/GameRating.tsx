@@ -2,16 +2,24 @@ import { Box, Link, Typography, useMediaQuery, useTheme } from "@mui/material";
 import React from "react";
 import {
   buildStyles,
-  CircularProgressbarWithChildren,
+  CircularProgressbarWithChildren
 } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import ga from "../utils/gaLink";
 
-const RatingSemiCircle = ({ matched, score }) => {
+interface RatingSemiCircleProps {
+  matched: boolean;
+  score?: number;
+}
+
+const RatingSemiCircle = ({ matched, score }: RatingSemiCircleProps) => {
   const theme = useTheme();
   const mobile = useMediaQuery(theme.breakpoints.down("mobileCard"));
 
-  const ratingColor = (score) => {
+  const ratingColor = (score: number | undefined) => {
+    if (!score) {
+      return "#FFF";
+    }
     switch (true) {
       case score >= 84:
         return "#18B884";
@@ -28,13 +36,13 @@ const RatingSemiCircle = ({ matched, score }) => {
 
   return (
     <CircularProgressbarWithChildren
-      value={matched ? score : 0}
+      value={matched && score ? score : 0}
       circleRatio={0.5}
       strokeWidth={8}
       styles={buildStyles({
         rotation: 0.75,
         pathColor: ratingColor(score),
-        trailColor: "rgba(255, 255, 255, 0.1)",
+        trailColor: "rgba(255, 255, 255, 0.1)"
       })}
     >
       <Typography
@@ -53,14 +61,19 @@ const RatingSemiCircle = ({ matched, score }) => {
         textAlign={"center"}
         color={matched ? "white" : "#515970"}
       >
-        {matched ? (score > 0 ? score : "TBD") : "N/A"}
+        {matched ? (score && score > 0 ? score : "TBD") : "N/A"}
       </Typography>
     </CircularProgressbarWithChildren>
   );
 };
 
-const GameRating = ({ matched, ocgd }) => {
-  const score = Math.round(ocgd?.topCriticScore);
+interface GameRatingProps {
+  matched: boolean;
+  ocgd?: GameSummary;
+}
+
+const GameRating = ({ matched, ocgd }: GameRatingProps) => {
+  const score = ocgd ? Math.round(ocgd?.topCriticScore) : undefined;
 
   return (
     <Box
@@ -68,7 +81,7 @@ const GameRating = ({ matched, ocgd }) => {
       height={{ xs: 40, mobileCard: 70 }}
       marginBottom={{ xs: 2, mobileCard: 0 }}
     >
-      {matched ? (
+      {matched && ocgd ? (
         <Link
           href={`https://opencritic.com/game/${ocgd.id}/${ocgd.name}`}
           target="_blank"

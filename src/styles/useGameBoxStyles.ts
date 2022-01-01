@@ -1,6 +1,7 @@
 import { makeStyles } from "@mui/styles";
+import theme from "./theme";
 
-const useGameBoxStyles = makeStyles((theme) => ({
+const useGameBoxStyles = makeStyles({
   card: {
     margin: 8,
     width: 580,
@@ -13,14 +14,14 @@ const useGameBoxStyles = makeStyles((theme) => ({
       margin: 4,
       width: "100%",
       minWidth: "320px",
-      height: "150px",
-    },
+      height: "150px"
+    }
   },
   cardMedia: {
     width: 116,
     [theme.breakpoints.down("sm")]: {
-      width: 100,
-    },
+      width: 100
+    }
   },
   cardContent: {
     display: "flex",
@@ -33,9 +34,9 @@ const useGameBoxStyles = makeStyles((theme) => ({
       alignItems: "center",
       justifyContent: "space-around",
       "&:last-child": {
-        paddingBottom: 8,
-      },
-    },
+        paddingBottom: 8
+      }
+    }
   },
   title: {
     color: "white",
@@ -43,16 +44,16 @@ const useGameBoxStyles = makeStyles((theme) => ({
     fontWeight: 700,
     [theme.breakpoints.down("mobileCard")]: {
       fontSize: 12,
-      textAlign: "center",
-    },
+      textAlign: "center"
+    }
   },
   skeleton: {
     width: 130,
     height: 70,
     [theme.breakpoints.down("mobileCard")]: {
       width: 80,
-      height: 40,
-    },
+      height: 40
+    }
   },
   hoursCollection: {
     width: 268,
@@ -62,14 +63,14 @@ const useGameBoxStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("mobileCard")]: {
       width: "100%",
       marginLeft: 0,
-      justifyContent: "center",
+      justifyContent: "center"
     },
     [theme.breakpoints.between("mobileCard", "sm")]: {
       width: "auto",
       marginLeft: 8,
-      flexBasis: "70%",
-    },
-  },
-}));
+      flexBasis: "70%"
+    }
+  }
+});
 
 export default useGameBoxStyles;
