@@ -10,7 +10,8 @@ import {
   useTheme,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import gaSearchKey from "../../utils/gaSearchKey";
 
 // Class names from https://stackoverflow.com/questions/58963242/change-border-color-on-material-ui-textfield
 const useStyles = makeStyles((theme) => ({
@@ -35,11 +36,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SearchBar = ({ handleChange, onChange }) => {
+const SearchBar = ({ handleSearch }) => {
+  const [searchInput, setSearchInput] = useState("");
+
   const theme = useTheme();
   const mobile = useMediaQuery(theme.breakpoints.down("mobileCard"));
 
   const classes = useStyles();
+
+  // Displays initial set of games on page load
+  useEffect(() => {
+    searchInput ? handleSearch(searchInput) : handleSearch("");
+  }, []);
+
+  const handleClick = useCallback(() => {
+    handleSearch(searchInput);
+    gaSearchKey("click");
+  }, [handleSearch, searchInput]);
+
+  const handleKeyDown = useCallback(
+    (event) => {
+      if (event.key === "Enter") {
+        handleSearch(searchInput);
+        gaSearchKey("enter");
+      }
+    },
+    [handleSearch, searchInput]
+  );
 
   return (
     <FormControl variant="outlined" className={classes.form}>
@@ -57,15 +80,15 @@ const SearchBar = ({ handleChange, onChange }) => {
         id="sipSearchbar"
         type="search"
         sx={{ borderRadius: "60px", marginLeft: -1, paddingRight: 3 }}
-        onKeyDown={handleChange}
-        onChange={(e) => onChange(e.target.value)}
+        onKeyDown={handleKeyDown}
+        onChange={(e) => setSearchInput(e.target.value)}
         label="Search for games..."
         endAdornment={
           <InputAdornment position="end">
             <IconButton
               aria-label="search for games"
               edge="end"
-              onClick={handleChange}
+              onClick={handleClick}
             >
               <FontAwesomeIcon icon={faSearch} color="#C8D4FF" />
             </IconButton>
