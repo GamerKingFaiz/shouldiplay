@@ -53,7 +53,7 @@ const GameHours = ({ value, subtitle, gameId }: Props) => {
           fontWeight={700}
           color={theme.palette.text.primary}
         >
-          {value}
+          {value === "0h" ? "--" : value}
         </Typography>
       </Link>
     </Box>
