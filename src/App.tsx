@@ -8,7 +8,7 @@ import {
   useTheme
 } from "@mui/material";
 import { HowLongToBeatEntry, HowLongToBeatService } from "howlongtobeat";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import Footer from "./components/Footer";
 import GameBox from "./components/GameBox";
 import GameBoxSkeleton from "./components/GameBoxSkeleton";
@@ -23,7 +23,7 @@ const App = () => {
   const [loading, setLoading] = useState(Boolean);
   const [searchResults, setSearchResults] = useState<HowLongToBeatEntry[]>([]);
 
-  const handleSearch = (value: string) => {
+  const handleSearch = useCallback((value: string) => {
     setLoading(true);
     window.gtag("event", "search", {
       search_term: value
@@ -32,7 +32,7 @@ const App = () => {
       setLoading(false);
       setSearchResults(result);
     });
-  };
+  }, []);
 
   return (
     <Box display={"flex"} flexDirection={"column"}>
