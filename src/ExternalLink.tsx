@@ -2,13 +2,17 @@ import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "@mui/material";
 
-const ExternalLink = ({ href, value }) => {
+interface Props {
+  href: string;
+  value: string;
+}
+
+const ExternalLink = ({ href, value }: Props) => {
   return (
     <>
       <Link href={href} target="_blank" rel="noopener">
         {value}
-      </Link>
-      {' '}
+      </Link>{" "}
       <FontAwesomeIcon icon={faExternalLinkAlt} />
     </>
   );

@@ -4,35 +4,52 @@ import {
   CardContent,
   CardMedia,
   Skeleton,
-  Typography,
+  Typography
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
+
 import useGameBoxStyles from "../styles/useGameBoxStyles";
 import GameHours from "./GameHours";
 import GameRating from "./GameRating";
+import { httpRequest } from "utils/http";
+import { HowLongToBeatEntry } from "howlongtobeat";
 
-const GameBox = ({ data }) => {
+interface Props {
+  data: HowLongToBeatEntry;
+}
+
+type TimeLabelKeys =
+  | "gameplayMain"
+  | "gameplayMainExtra"
+  | "gameplayCompletionist";
+
+const GameBox = ({ data }: Props) => {
   const [loading, setLoading] = useState(Boolean);
-  const [openCriticGameData, setOpenCriticGameData] = useState();
+  const [openCriticGameData, setOpenCriticGameData] = useState<
+    GameSummary | undefined
+  >();
   const [gameMatched, setGameMatched] = useState(Boolean);
 
   const classes = useGameBoxStyles();
-
   useEffect(() => {
     setLoading(true);
     const cleanName = data.name.replace(/\s+/g, " ").toLowerCase();
-    fetch(`https://shouldiplay-api.herokuapp.com/opencriticid/${cleanName}`)
-      .then((response) => response.json())
-      .then((json) => {
-        if (json.opencriticid) {
-          fetch(`https://api.opencritic.com/api/game/${json.opencriticid}`)
-            .then((openCriticGame) => openCriticGame.json())
-            .then((openCriticGameJson) => {
-              setOpenCriticGameData(openCriticGameJson);
-              setLoading(false);
-            });
-        } else setLoading(false);
-      });
+
+    httpRequest<{ opencriticid: string }>(
+      `https://shouldiplay-api.herokuapp.com/opencriticid/${cleanName}`
+    ).then(({ opencriticid }) => {
+      if (opencriticid) {
+        httpRequest<GameSummary>(
+          `https://api.opencritic.com/api/game/${opencriticid}`
+        ).then(summary => {
+          debugger;
+          setOpenCriticGameData(summary);
+          setLoading(false);
+        });
+      } else {
+        setLoading(false);
+      }
+    });
   }, [data.name]);
 
   useEffect(() => {
@@ -79,7 +96,7 @@ const GameBox = ({ data }) => {
             {data.timeLabels.map((label, index) => (
               <GameHours
                 key={index}
-                value={`${Math.round(data[label[0]])}h`}
+                value={`${Math.round(data[label[0] as TimeLabelKeys])}h`}
                 subtitle={label[1]}
                 gameId={data.id}
               />

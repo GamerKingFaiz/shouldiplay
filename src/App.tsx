@@ -5,10 +5,10 @@ import {
   Toolbar,
   Typography,
   useMediaQuery,
-  useTheme,
+  useTheme
 } from "@mui/material";
-import { HowLongToBeatService } from "howlongtobeat";
-import React, { useState } from "react";
+import { HowLongToBeatEntry, HowLongToBeatService } from "howlongtobeat";
+import React, { useCallback, useState } from "react";
 import Footer from "./components/Footer";
 import GameBox from "./components/GameBox";
 import GameBoxSkeleton from "./components/GameBoxSkeleton";
@@ -21,18 +21,18 @@ const App = () => {
   const theme = useTheme();
   const mobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [loading, setLoading] = useState(Boolean);
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState<HowLongToBeatEntry[]>([]);
 
-  const handleSearch = (value) => {
+  const handleSearch = useCallback((value: string) => {
     setLoading(true);
     window.gtag("event", "search", {
-      search_term: value,
+      search_term: value
     });
-    hltbService.search(value).then((result) => {
+    hltbService.search(value).then(result => {
       setLoading(false);
       setSearchResults(result);
     });
-  };
+  }, []);
 
   return (
     <Box display={"flex"} flexDirection={"column"}>
@@ -41,7 +41,7 @@ const App = () => {
         sx={{
           bgcolor: "#242A43",
           backgroundImage: "none",
-          boxShadow: "0px 2px 40px 0px rgb(0 0 0 / 40%)",
+          boxShadow: "0px 2px 40px 0px rgb(0 0 0 / 40%)"
         }}
       >
         <Toolbar sx={{ justifyContent: "space-between" }}>
@@ -59,13 +59,13 @@ const App = () => {
         minHeight={{
           xs: "calc(100vh - 342px)",
           mobileCard: "calc(100vh - 345px)",
-          sm: "calc(100vh - 321px)",
+          sm: "calc(100vh - 321px)"
         }}
       >
         {loading ? (
           <GameBoxSkeleton />
         ) : searchResults.length ? (
-          searchResults.map((gameData, index) => {
+          searchResults?.map((gameData, index) => {
             return <GameBox data={gameData} key={index} />;
           })
         ) : (
