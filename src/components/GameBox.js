@@ -20,23 +20,24 @@ const GameBox = ({ data }) => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`https://api.opencritic.com/api/game/search?criteria=${data.name}`)
-      .then((openCriticSearchResponse) => openCriticSearchResponse.json())
-      .then((openCriticSearchData) => {
-        fetch(
-          `https://api.opencritic.com/api/game/${openCriticSearchData[0].id}`
-        )
-          .then((openCriticGame) => openCriticGame.json())
-          .then((openCriticGameJson) => {
-            setOpenCriticGameData(openCriticGameJson);
-            setLoading(false);
-          });
+    const cleanName = data.name.replace(/\s+/g, " ").toLowerCase();
+    fetch(`https://shouldiplay-api.herokuapp.com/opencriticid/${cleanName}`)
+      .then((response) => response.json())
+      .then((json) => {
+        if (json.opencriticid) {
+          fetch(`https://api.opencritic.com/api/game/${json.opencriticid}`)
+            .then((openCriticGame) => openCriticGame.json())
+            .then((openCriticGameJson) => {
+              setOpenCriticGameData(openCriticGameJson);
+              setLoading(false);
+            });
+        } else setLoading(false);
       });
-  }, [data]);
+  }, [data.name]);
 
   useEffect(() => {
     /**
-     * Comparing the name from the HowLongToBeat API(after stripping adjacent
+     * Comparing the name from the HowLongToBeat API (after stripping adjacent
      * whitespace) to the name of the first result of the OpenCritic API (after
      * removing everything except alphanumeric characters and whitespace)
      */
