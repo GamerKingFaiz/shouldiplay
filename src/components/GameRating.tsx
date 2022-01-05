@@ -52,7 +52,7 @@ const RatingSemiCircle = ({ matched, score }: RatingSemiCircleProps) => {
         textAlign={"center"}
         color={matched ? theme.palette.text.primary : "#515970"}
       >
-        RATING
+        {matched ? "OpenCritic" : "RATING"}
       </Typography>
       <Typography
         fontSize={mobile ? 15 : 30}

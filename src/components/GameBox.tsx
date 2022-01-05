@@ -33,21 +33,28 @@ const GameBox = ({ data }: Props) => {
   const classes = useGameBoxStyles();
   useEffect(() => {
     setLoading(true);
-    httpRequest<CriteriaResult[]>(
-      `https://api.opencritic.com/api/game/search?criteria=${data.name}`
-    ).then(res => {
-      httpRequest<GameSummary>(
-        `https://api.opencritic.com/api/game/${res[0].id}`
-      ).then(summary => {
-        setOpenCriticGameData(summary);
+    const cleanName = data.name.replace(/\s+/g, " ").toLowerCase();
+
+    httpRequest<{ opencriticid: string }>(
+      `https://shouldiplay-api.herokuapp.com/opencriticid/${cleanName}`
+    ).then(({ opencriticid }) => {
+      if (opencriticid) {
+        httpRequest<GameSummary>(
+          `https://api.opencritic.com/api/game/${opencriticid}`
+        ).then(summary => {
+          debugger;
+          setOpenCriticGameData(summary);
+          setLoading(false);
+        });
+      } else {
         setLoading(false);
-      });
+      }
     });
-  }, [data]);
+  }, [data.name]);
 
   useEffect(() => {
     /**
-     * Comparing the name from the HowLongToBeat API(after stripping adjacent
+     * Comparing the name from the HowLongToBeat API (after stripping adjacent
      * whitespace) to the name of the first result of the OpenCritic API (after
      * removing everything except alphanumeric characters and whitespace)
      */

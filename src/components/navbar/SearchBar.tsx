@@ -42,22 +42,23 @@ interface Props {
 }
 
 const SearchBar = ({ handleSearch }: Props) => {
+  const [searchInput, setSearchInput] = useState("");
+
   const theme = useTheme();
   const mobile = useMediaQuery(theme.breakpoints.down("mobileCard"));
   const classes = useStyles();
 
-  const [searchInput, setSearchInput] = useState("");
-
+  // Displays initial set of games on page load
   useEffect(() => {
     searchInput ? handleSearch(searchInput) : handleSearch("");
   }, []);
 
-  const onClick = useCallback(() => {
+  const handleClick = useCallback(() => {
     handleSearch(searchInput);
     gaSearchKey("click");
   }, [handleSearch, searchInput]);
 
-  const onKeyDown = useCallback(
+  const handleKeyDown = useCallback(
     (event: React.KeyboardEvent) => {
       if (event.key === "Enter") {
         handleSearch(searchInput);
@@ -83,7 +84,7 @@ const SearchBar = ({ handleSearch }: Props) => {
         id="sipSearchbar"
         type="search"
         sx={{ borderRadius: "60px", marginLeft: -1, paddingRight: 3 }}
-        onKeyDown={onKeyDown}
+        onKeyDown={handleKeyDown}
         onChange={e => setSearchInput(e.target.value)}
         label="Search for games..."
         endAdornment={
@@ -91,7 +92,7 @@ const SearchBar = ({ handleSearch }: Props) => {
             <IconButton
               aria-label="search for games"
               edge="end"
-              onClick={onClick}
+              onClick={handleClick}
             >
               <FontAwesomeIcon icon={faSearch} color="#C8D4FF" />
             </IconButton>
