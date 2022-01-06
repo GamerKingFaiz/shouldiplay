@@ -10,7 +10,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import gaSearchKey from "../../utils/gaSearchKey";
 
 // Class names from https://stackoverflow.com/questions/58963242/change-border-color-on-material-ui-textfield
@@ -49,20 +49,17 @@ const SearchBar = ({ handleSearch }) => {
     searchInput ? handleSearch(searchInput) : handleSearch("");
   }, []);
 
-  const handleClick = useCallback(() => {
+  const handleClick = () => {
     handleSearch(searchInput);
     gaSearchKey("click");
-  }, [handleSearch, searchInput]);
+  };
 
-  const handleKeyDown = useCallback(
-    (event) => {
-      if (event.key === "Enter") {
-        handleSearch(searchInput);
-        gaSearchKey("enter");
-      }
-    },
-    [handleSearch, searchInput]
-  );
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleSearch(searchInput);
+      gaSearchKey("enter");
+    }
+  };
 
   return (
     <FormControl variant="outlined" className={classes.form}>

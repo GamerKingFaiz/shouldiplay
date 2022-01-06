@@ -8,7 +8,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { HowLongToBeatService } from "howlongtobeat";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import Footer from "./components/Footer";
 import GameBox from "./components/GameBox";
 import GameBoxSkeleton from "./components/GameBoxSkeleton";
@@ -23,14 +23,17 @@ const App = () => {
   const [loading, setLoading] = useState(Boolean);
   const [searchResults, setSearchResults] = useState([]);
 
-  const handleSearch = (value) => {
+  const handleSearch = useCallback((value) => {
     setLoading(true);
     setSearchResults([]);
     hltbService.search(value).then((result) => {
       setLoading(false);
       setSearchResults(result);
     });
-  };
+    window.gtag("event", "search", {
+      search_term: value,
+    });
+  }, []);
 
   return (
     <Box display={"flex"} flexDirection={"column"}>
