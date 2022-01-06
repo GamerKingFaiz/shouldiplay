@@ -25,9 +25,7 @@ const App = () => {
 
   const handleSearch = (value) => {
     setLoading(true);
-    window.gtag("event", "search", {
-      search_term: value,
-    });
+    setSearchResults([]);
     hltbService.search(value).then((result) => {
       setLoading(false);
       setSearchResults(result);
