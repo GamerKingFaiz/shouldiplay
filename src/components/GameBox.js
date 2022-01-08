@@ -20,8 +20,11 @@ const GameBox = ({ data }) => {
 
   useEffect(() => {
     setLoading(true);
-    // Regex removes adjacent whitespace characters
-    const cleanName = data.name.replace(/\s+/g, " ").toLowerCase();
+    // Regex removes non-alphanumeric characaters and adjacent whitespace characters
+    const cleanName = data.name
+      .replace(/[^\w\s]|_/g, "")
+      .replace(/\s+/g, " ")
+      .toLowerCase();
     fetch(`https://shouldiplay-api.herokuapp.com/opencriticid/${cleanName}`)
       .then((response) => response.json())
       .then((json) => {
