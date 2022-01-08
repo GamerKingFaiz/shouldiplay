@@ -31,7 +31,7 @@ const App = () => {
       setSearchResults(result);
     });
     window.gtag("event", "search", {
-      search_term: value,
+      search_term: value.toLowerCase(),
     });
   }, []);
 
