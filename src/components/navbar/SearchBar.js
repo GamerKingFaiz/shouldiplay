@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React, { useEffect, useState } from "react";
+import { StringParam, useQueryParam } from "use-query-params";
 import gaSearchKey from "../../utils/gaSearchKey";
 
 // Class names from https://stackoverflow.com/questions/58963242/change-border-color-on-material-ui-textfield
@@ -38,25 +39,29 @@ const useStyles = makeStyles((theme) => ({
 
 const SearchBar = ({ handleSearch }) => {
   const [searchInput, setSearchInput] = useState("");
+  const [searchParams, setSearchParams] = useQueryParam("search", StringParam);
 
   const theme = useTheme();
   const mobile = useMediaQuery(theme.breakpoints.down("mobileCard"));
 
   const classes = useStyles();
 
-  // Displays initial set of games on page load
+  // Displays initial set of games on page load and whenever search is performed
   useEffect(() => {
-    searchInput ? handleSearch(searchInput) : handleSearch("");
-  }, []);
+    searchParams ? handleSearch(searchParams) : handleSearch("");
+    document.title = searchParams
+      ? `Should I Play ${searchParams}?`
+      : "Should I Play This?";
+  }, [searchParams, handleSearch]);
 
   const handleClick = () => {
-    handleSearch(searchInput);
+    setSearchParams(searchInput);
     gaSearchKey("click");
   };
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
-      handleSearch(searchInput);
+      setSearchParams(searchInput);
       gaSearchKey("enter");
     }
   };

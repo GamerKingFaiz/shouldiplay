@@ -8,12 +8,13 @@ import {
   useTheme,
 } from "@mui/material";
 import { HowLongToBeatService } from "howlongtobeat";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Footer from "./components/Footer";
 import GameBox from "./components/GameBox";
 import GameBoxSkeleton from "./components/GameBoxSkeleton";
 import Logo from "./components/navbar/Logo";
 import SearchBar from "./components/navbar/SearchBar";
+import history from "./utils/history";
 
 const hltbService = new HowLongToBeatService();
 
@@ -22,6 +23,15 @@ const App = () => {
   const mobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [loading, setLoading] = useState(Boolean);
   const [searchResults, setSearchResults] = useState([]);
+
+  // https://github.com/pbeshai/use-query-params/blob/master/examples/no-router/src/App.js
+  const [, forceUpdate] = React.useReducer((x) => x + 1, 0);
+  useEffect(() => {
+    // listen for changes to the URL and force the app to re-render
+    history.listen(() => {
+      forceUpdate();
+    });
+  }, []);
 
   const handleSearch = useCallback((value) => {
     setLoading(true);

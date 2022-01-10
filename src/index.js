@@ -1,8 +1,10 @@
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import React from "react";
 import ReactDOM from "react-dom";
+import { QueryParamProvider } from "use-query-params";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import history from "./utils/history";
 
 const theme = createTheme({
   palette: {
@@ -48,8 +50,10 @@ const theme = createTheme({
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <App />
+      <QueryParamProvider history={history}>
+        <CssBaseline />
+        <App />
+      </QueryParamProvider>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")
