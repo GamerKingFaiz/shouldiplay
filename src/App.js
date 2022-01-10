@@ -7,7 +7,6 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { HowLongToBeatService } from "howlongtobeat";
 import React, { useCallback, useEffect, useState } from "react";
 import Footer from "./components/Footer";
 import GameBox from "./components/GameBox";
@@ -15,8 +14,6 @@ import GameBoxSkeleton from "./components/GameBoxSkeleton";
 import Logo from "./components/navbar/Logo";
 import SearchBar from "./components/navbar/SearchBar";
 import history from "./utils/history";
-
-const hltbService = new HowLongToBeatService();
 
 const App = () => {
   const theme = useTheme();
@@ -36,10 +33,12 @@ const App = () => {
   const handleSearch = useCallback((value) => {
     setLoading(true);
     setSearchResults([]);
-    hltbService.search(value).then((result) => {
-      setLoading(false);
-      setSearchResults(result);
-    });
+    fetch(`https://shouldiplay-api.herokuapp.com/hltb/${value.toLowerCase()}`)
+      .then((response) => response.json())
+      .then((result) => {
+        setLoading(false);
+        setSearchResults(result);
+      });
     window.gtag("event", "search", {
       search_term: value.toLowerCase(),
     });
