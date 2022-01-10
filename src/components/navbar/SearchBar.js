@@ -82,6 +82,7 @@ const SearchBar = ({ handleSearch }) => {
         id="sipSearchbar"
         type="search"
         sx={{ borderRadius: "60px", marginLeft: -1, paddingRight: 3 }}
+        defaultValue={searchParams}
         onKeyDown={handleKeyDown}
         onChange={(e) => setSearchInput(e.target.value)}
         label="Search for games..."
