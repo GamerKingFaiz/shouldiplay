@@ -72,7 +72,7 @@ const GameRating = ({ matched, ocgd }) => {
         <Link
           href={`https://opencritic.com/game/${ocgd.id}/${ocgd.name}`}
           target="_blank"
-          rel="noopener"
+          rel="noopener noreferrer"
           underline="none"
           onMouseDown={() => ga("opencritic_rating")}
         >
