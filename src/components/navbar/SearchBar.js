@@ -50,7 +50,7 @@ const SearchBar = ({ handleSearch }) => {
   useEffect(() => {
     searchParams ? handleSearch(searchParams) : handleSearch("");
     document.title = searchParams
-      ? `Should I Play ${searchParams}?`
+      ? `${searchParams} - Should I Play This?`
       : "Should I Play This?";
   }, [searchParams, handleSearch]);
 
