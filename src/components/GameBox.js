@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import useGameBoxStyles from "../styles/useGameBoxStyles";
+import { API_URL } from "../utils/constants";
 import GameHours from "./GameHours";
 import GameRating from "./GameRating";
 
@@ -25,7 +26,7 @@ const GameBox = ({ data }) => {
       .replace(/[^\w\s]|_/g, "")
       .replace(/\s+/g, " ")
       .toLowerCase();
-    fetch(`https://shouldiplay-api.herokuapp.com/opencriticid/${cleanName}`)
+    fetch(`${API_URL}/opencriticid/${cleanName}`)
       .then((response) => response.json())
       .then((json) => {
         if (json.topCriticScore) {

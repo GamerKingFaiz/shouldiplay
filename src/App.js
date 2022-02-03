@@ -2,17 +2,20 @@ import {
   AppBar,
   Box,
   Divider,
+  Pagination,
   Toolbar,
   Typography,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
 import React, { useCallback, useEffect, useState } from "react";
+import { NumberParam, useQueryParam, withDefault } from "use-query-params";
 import Footer from "./components/Footer";
 import GameBox from "./components/GameBox";
 import GameBoxSkeleton from "./components/GameBoxSkeleton";
 import Logo from "./components/navbar/Logo";
 import SearchBar from "./components/navbar/SearchBar";
+import { API_URL } from "./utils/constants";
 import history from "./utils/history";
 
 const App = () => {
@@ -20,6 +23,8 @@ const App = () => {
   const mobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [loading, setLoading] = useState(Boolean);
   const [searchResults, setSearchResults] = useState([]);
+  const [pageCount, setPageCount] = useState(1);
+  const [page, setPage] = useQueryParam("page", withDefault(NumberParam, 1));
 
   // https://github.com/pbeshai/use-query-params/blob/master/examples/no-router/src/App.js
   const [, forceUpdate] = React.useReducer((x) => x + 1, 0);
@@ -33,16 +38,21 @@ const App = () => {
   const handleSearch = useCallback((value) => {
     setLoading(true);
     setSearchResults([]);
-    fetch(`https://shouldiplay-api.herokuapp.com/hltb/${value.toLowerCase()}`)
+    fetch(`${API_URL}/hltb/${value.toLowerCase()}?page=${page}`)
       .then((response) => response.json())
       .then((result) => {
         setLoading(false);
-        setSearchResults(result);
+        setSearchResults(result.results);
+        setPageCount(result.pages);
       });
     window.gtag("event", "search", {
       search_term: value.toLowerCase(),
     });
-  }, []);
+  }, [page]);
+
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
 
   return (
     <Box display={"flex"} flexDirection={"column"}>
@@ -56,20 +66,20 @@ const App = () => {
       >
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <Logo />
-          <SearchBar handleSearch={handleSearch} />
+          <SearchBar handleSearch={handleSearch} setPage={setPage} />
         </Toolbar>
       </AppBar>
 
       <Box
-        p={mobile ? "8px 8px 32px 8px" : "16px 16px 32px 16px"}
+        p={mobile ? "8px 8px 16px 8px" : 2}
         display={"flex"}
         flexWrap={"wrap"}
         justifyContent={"center"}
         alignContent={"flex-start"}
         minHeight={{
-          xs: "calc(100vh - 342px)",
-          mobileCard: "calc(100vh - 345px)",
-          sm: "calc(100vh - 321px)",
+          xs: "calc(100vh - 384px)",
+          mobileCard: "calc(100vh - 387px)",
+          sm: "calc(100vh - 369px)",
         }}
       >
         {loading ? (
@@ -84,6 +94,14 @@ const App = () => {
           </Typography>
         )}
       </Box>
+
+      <Pagination
+        count={pageCount}
+        size={mobile ? "small" : ""}
+        page={page}
+        onChange={handleChange}
+        sx={{ mb: 2, alignSelf: "center" }}
+      />
 
       <Divider flexItem />
 

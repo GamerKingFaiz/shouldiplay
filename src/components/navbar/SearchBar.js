@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SearchBar = ({ handleSearch }) => {
+const SearchBar = ({ handleSearch, setPage }) => {
   const [searchInput, setSearchInput] = useState("");
   const [searchParams, setSearchParams] = useQueryParam("search", StringParam);
 
@@ -55,12 +55,14 @@ const SearchBar = ({ handleSearch }) => {
   }, [searchParams, handleSearch]);
 
   const handleClick = () => {
+    setPage(1);
     setSearchParams(searchInput);
     gaSearchKey("click");
   };
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
+      setPage(1);
       setSearchParams(searchInput);
       gaSearchKey("enter");
     }
