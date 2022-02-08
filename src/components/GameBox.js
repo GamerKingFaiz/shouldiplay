@@ -26,10 +26,10 @@ const GameBox = ({ data }) => {
       .replace(/[^\w\s]|_/g, "")
       .replace(/\s+/g, " ")
       .toLowerCase();
-    fetch(`${API_URL}/opencriticid/${cleanName}`)
+    fetch(`${API_URL}/opencritic/${cleanName}`)
       .then((response) => response.json())
       .then((json) => {
-        if (json.topCriticScore) {
+        if (json) {
           setOpenCriticGameData(json);
           setGameMatched(true);
         } else {
