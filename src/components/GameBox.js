@@ -6,9 +6,10 @@ import {
   Skeleton,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useGameBoxStyles from "../styles/useGameBoxStyles";
 import { API_URL } from "../utils/constants";
+import { stripName } from "../utils/stripName";
 import GameHours from "./GameHours";
 import GameRating from "./GameRating";
 
@@ -21,11 +22,7 @@ const GameBox = ({ data }) => {
 
   useEffect(() => {
     setLoading(true);
-    // Regex removes non-alphanumeric characaters and adjacent whitespace characters
-    const cleanName = data.name
-      .replace(/[^\w\s]|_/g, "")
-      .replace(/\s+/g, " ")
-      .toLowerCase();
+    const cleanName = stripName(data.name);
     fetch(`${API_URL}/opencritic/${cleanName}`)
       .then((response) => response.json())
       .then((json) => {
