@@ -17,7 +17,6 @@ import Logo from "./components/navbar/Logo";
 import SearchBar from "./components/navbar/SearchBar";
 import { API_URL } from "./utils/constants";
 import history from "./utils/history";
-import { stripName } from "./utils/stripName";
 
 const App = () => {
   const theme = useTheme();
@@ -40,7 +39,7 @@ const App = () => {
     (value) => {
       setLoading(true);
       setSearchResults([]);
-      fetch(`${API_URL}/hltb/${stripName(value)}?page=${page}`)
+      fetch(`${API_URL}/hltb/${value.toLowerCase()}?page=${page}`)
         .then((response) => response.json())
         .then((result) => {
           setLoading(false);
