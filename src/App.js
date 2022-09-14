@@ -43,8 +43,8 @@ const App = () => {
         .then((response) => response.json())
         .then((result) => {
           setLoading(false);
-          setSearchResults(result.results);
-          setPageCount(result.pages);
+          setSearchResults(result.data);
+          setPageCount(result.pageTotal);
         });
       window.gtag("event", "search", {
         search_term: value.toLowerCase(),

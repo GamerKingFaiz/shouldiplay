@@ -22,7 +22,7 @@ const GameBox = ({ data }) => {
 
   useEffect(() => {
     setLoading(true);
-    const cleanName = stripName(data.name);
+    const cleanName = stripName(data.game_name);
     fetch(`${API_URL}/opencritic/${cleanName}`)
       .then((response) => response.json())
       .then((json) => {
@@ -34,19 +34,19 @@ const GameBox = ({ data }) => {
         }
         setLoading(false);
       });
-  }, [data.name]);
+  }, [data.game_name]);
 
   return (
     <Card className={classes.card}>
       <CardMedia
         component="img"
-        image={`https://howlongtobeat.com${data.imageUrl}`}
+        image={`https://howlongtobeat.com/games/${data.game_image}`}
         alt="Game cover"
         className={classes.cardMedia}
       />
       <CardContent className={classes.cardContent}>
         {/* Title */}
-        <Typography className={classes.title}>{data.name}</Typography>
+        <Typography className={classes.title}>{data.game_name}</Typography>
 
         {/* Rating and Times to beat */}
         <Box
@@ -62,14 +62,40 @@ const GameBox = ({ data }) => {
             <GameRating matched={gameMatched} ocgd={openCriticGameData} />
           )}
           <Box className={classes.hoursCollection}>
-            {data.timeLabels.map((label, index) => (
-              <GameHours
-                key={index}
-                value={`${Math.round(data[label[0]])}h`}
-                subtitle={label[1]}
-                gameId={data.id}
-              />
-            ))}
+            {data.game_type === "game" ? (
+              // Normal game hour numbers
+              <>
+                <GameHours
+                  value={`${Math.round(data.comp_main / 3600)}h`}
+                  subtitle={"MAIN"}
+                  gameId={data.game_id}
+                />
+                <GameHours
+                  value={`${Math.round(data.comp_plus / 3600)}h`}
+                  subtitle={"+EXTRAS"}
+                  gameId={data.game_id}
+                />
+                <GameHours
+                  value={`${Math.round(data.comp_100 / 3600)}h`}
+                  subtitle={"COMPLETE"}
+                  gameId={data.game_id}
+                />
+              </>
+            ) : (
+              // Multiplayer game hour numbers
+              <>
+                <GameHours
+                  value={`${Math.round(data.invested_co / 3600)}h`}
+                  subtitle={"CO-OP"}
+                  gameId={data.game_id}
+                />
+                <GameHours
+                  value={`${Math.round(data.invested_mp / 3600)}h`}
+                  subtitle={"VS."}
+                  gameId={data.game_id}
+                />
+              </>
+            )}
           </Box>
         </Box>
       </CardContent>

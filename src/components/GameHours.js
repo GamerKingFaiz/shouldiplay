@@ -5,20 +5,6 @@ const GameHours = ({ value, subtitle, gameId }) => {
   const theme = useTheme();
   const mobile = useMediaQuery(theme.breakpoints.down("mobileCard"));
 
-  switch (subtitle) {
-    case "Main Story":
-      subtitle = "MAIN";
-      break;
-    case "Main + Extra":
-      subtitle = "+EXTRAS";
-      break;
-    case "Completionist":
-      subtitle = "COMPLETE";
-      break;
-    default:
-      subtitle = subtitle.toUpperCase();
-  }
-
   return (
     <Box
       display={"flex"}
@@ -28,7 +14,7 @@ const GameHours = ({ value, subtitle, gameId }) => {
       flexBasis={"33.3333%"}
     >
       <Link
-        href={`https://howlongtobeat.com/game?id=${gameId}`}
+        href={`https://howlongtobeat.com/game/${gameId}`}
         target="_blank"
         rel="noopener"
         underline="none"
