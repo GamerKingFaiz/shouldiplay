@@ -11,6 +11,7 @@ const Logo = () => {
       underline="none"
       display={"flex"}
       onMouseDown={() => ga("logo")}
+      className="umami--pointerdown--logo"
     >
       <img src={logo} height={50} alt="logo" />
       <Box marginLeft={2} display={{ xs: "none", sm: "block" }}>

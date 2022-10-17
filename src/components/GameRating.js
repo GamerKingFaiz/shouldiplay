@@ -75,6 +75,7 @@ const GameRating = ({ matched, ocgd }) => {
           rel="noopener noreferrer"
           underline="none"
           onMouseDown={() => ga("opencritic_rating")}
+          className="umami--pointerdown--opencritic-rating"
         >
           <RatingSemiCircle score={score} matched={matched} />
         </Link>

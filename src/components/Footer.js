@@ -22,6 +22,7 @@ const Footer = () => {
           underline="none"
           fontWeight={700}
           onMouseDown={() => ga("paypal")}
+          className="umami--pointerdown--paypal"
         >
           PayPal
         </Link>{" "}
@@ -34,6 +35,7 @@ const Footer = () => {
           underline="none"
           fontWeight={700}
           onMouseDown={() => ga("github")}
+          className="umami--pointerdown--github"
         >
           GitHub
         </Link>{" "}
@@ -45,6 +47,7 @@ const Footer = () => {
           underline="none"
           fontWeight={700}
           onMouseDown={() => ga("github_issue")}
+          className="umami--pointerdown--github-issue"
         >
           Report a bug
         </Link>{" "}
@@ -56,6 +59,7 @@ const Footer = () => {
           underline="none"
           fontWeight={700}
           onMouseDown={() => ga("twitter")}
+          className="umami--pointerdown--twitter"
         >
           Tweet Me
         </Link>
@@ -69,6 +73,7 @@ const Footer = () => {
           underline="none"
           fontWeight={700}
           onMouseDown={() => ga("opencritic_footer")}
+          className="umami--pointerdown--opencritic-footer"
         >
           OpenCritic
         </Link>
@@ -82,6 +87,7 @@ const Footer = () => {
           underline="none"
           fontWeight={700}
           onMouseDown={() => ga("howlongtobeat_footer")}
+          className="umami--pointerdown--hltb-footer"
         >
           HowLongToBeat
         </Link>

@@ -20,6 +20,7 @@ const GameHours = ({ value, subtitle, gameId }) => {
         underline="none"
         textAlign="center"
         onMouseDown={() => ga("howlongtobeat_hours")}
+        className="umami--pointerdown--hltb-hours"
       >
         <Typography
           fontSize={mobile ? 9 : 11}
