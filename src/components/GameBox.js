@@ -62,7 +62,7 @@ const GameBox = ({ data }) => {
             <GameRating matched={gameMatched} ocgd={openCriticGameData} />
           )}
           <Box className={classes.hoursCollection}>
-            {data.game_type === "game" ? (
+            {data.game_type === "game" || data.game_type === "compil" ? (
               // Normal game hour numbers
               <>
                 <GameHours
