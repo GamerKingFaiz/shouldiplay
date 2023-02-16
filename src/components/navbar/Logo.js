@@ -1,6 +1,5 @@
 import { Box, Link, Typography, useTheme } from "@mui/material";
 import logo from "../../images/logo.png";
-import ga from "../../utils/gaLink";
 
 const Logo = () => {
   const theme = useTheme();
@@ -10,7 +9,6 @@ const Logo = () => {
       href="."
       underline="none"
       display={"flex"}
-      onMouseDown={() => ga("logo")}
       className="umami--pointerdown--logo"
     >
       <img src={logo} height={50} alt="logo" />

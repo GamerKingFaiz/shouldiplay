@@ -1,5 +1,4 @@
 import { Box, Link, Typography, useMediaQuery, useTheme } from "@mui/material";
-import ga from "../utils/gaLink";
 
 const GameHours = ({ value, subtitle, gameId }) => {
   const theme = useTheme();
@@ -19,7 +18,6 @@ const GameHours = ({ value, subtitle, gameId }) => {
         rel="noopener"
         underline="none"
         textAlign="center"
-        onMouseDown={() => ga("howlongtobeat_hours")}
         className="umami--pointerdown--hltb-hours"
       >
         <Typography

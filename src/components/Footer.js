@@ -2,7 +2,6 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, Typography, useMediaQuery, useTheme } from "@mui/material";
 import React from "react";
-import ga from "../utils/gaLink";
 
 const Footer = () => {
   const theme = useTheme();
@@ -21,7 +20,6 @@ const Footer = () => {
           rel="noopener"
           underline="none"
           fontWeight={700}
-          onMouseDown={() => ga("paypal")}
           className="umami--pointerdown--paypal"
         >
           PayPal
@@ -34,7 +32,6 @@ const Footer = () => {
           rel="noopener"
           underline="none"
           fontWeight={700}
-          onMouseDown={() => ga("github")}
           className="umami--pointerdown--github"
         >
           GitHub
@@ -46,7 +43,6 @@ const Footer = () => {
           rel="noopener"
           underline="none"
           fontWeight={700}
-          onMouseDown={() => ga("github_issue")}
           className="umami--pointerdown--github-issue"
         >
           Report a bug
@@ -58,7 +54,6 @@ const Footer = () => {
           rel="noopener"
           underline="none"
           fontWeight={700}
-          onMouseDown={() => ga("twitter")}
           className="umami--pointerdown--twitter"
         >
           Tweet Me
@@ -72,7 +67,6 @@ const Footer = () => {
           rel="noopener"
           underline="none"
           fontWeight={700}
-          onMouseDown={() => ga("opencritic_footer")}
           className="umami--pointerdown--opencritic-footer"
         >
           OpenCritic
@@ -86,7 +80,6 @@ const Footer = () => {
           rel="noopener"
           underline="none"
           fontWeight={700}
-          onMouseDown={() => ga("howlongtobeat_footer")}
           className="umami--pointerdown--hltb-footer"
         >
           HowLongToBeat

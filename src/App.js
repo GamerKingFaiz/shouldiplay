@@ -46,9 +46,6 @@ const App = () => {
           setSearchResults(result.data);
           setPageCount(result.pageTotal);
         });
-      window.gtag("event", "search", {
-        search_term: value.toLowerCase(),
-      });
     },
     [page]
   );
