@@ -22,6 +22,7 @@ const App = () => {
   const theme = useTheme();
   const mobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [loading, setLoading] = useState(Boolean);
+  const [rateLimited, setRateLimited] = useState(Boolean);
   const [searchResults, setSearchResults] = useState([]);
   const [pageCount, setPageCount] = useState(1);
   const [page, setPage] = useQueryParam("page", withDefault(NumberParam, 1));
@@ -38,14 +39,25 @@ const App = () => {
   const handleSearch = useCallback(
     (value) => {
       setLoading(true);
+      setRateLimited(false);
       setSearchResults([]);
       fetch(`${API_URL}/hltb/${value.toLowerCase()}?page=${page}`)
-        .then((response) => response.json())
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          if (response.status === 429) {
+            setLoading(false);
+            setRateLimited(true);
+            throw new Error(response.status);
+          }
+        })
         .then((result) => {
           setLoading(false);
           setSearchResults(result.data);
           setPageCount(result.pageTotal);
-        });
+        })
+        .catch((error) => {});
     },
     [page]
   );
@@ -82,7 +94,11 @@ const App = () => {
           sm: "calc(100vh - 369px)",
         }}
       >
-        {loading ? (
+        {rateLimited ? (
+          <Typography variant="h5" padding={3} textAlign="center">
+            Too many requests, please try again later.
+          </Typography>
+        ) : loading ? (
           <GameBoxSkeleton />
         ) : searchResults.length ? (
           searchResults.map((gameData, index) => {
