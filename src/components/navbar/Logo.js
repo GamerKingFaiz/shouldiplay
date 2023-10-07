@@ -9,7 +9,7 @@ const Logo = () => {
       href="."
       underline="none"
       display={"flex"}
-      className="umami--pointerdown--logo"
+      data-umami-event="logo"
     >
       <img src={logo} height={50} alt="logo" />
       <Box marginLeft={2} display={{ xs: "none", sm: "block" }}>

@@ -73,7 +73,7 @@ const GameRating = ({ matched, ocgd }) => {
           target="_blank"
           rel="noopener noreferrer"
           underline="none"
-          className="umami--pointerdown--opencritic-rating"
+          data-umami-event="opencritic-rating"
         >
           <RatingSemiCircle score={score} matched={matched} />
         </Link>

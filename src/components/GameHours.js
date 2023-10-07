@@ -18,7 +18,7 @@ const GameHours = ({ value, subtitle, gameId }) => {
         rel="noopener"
         underline="none"
         textAlign="center"
-        className="umami--pointerdown--hltb-hours"
+        data-umami-event="hltb-hours"
       >
         <Typography
           fontSize={mobile ? 9 : 11}

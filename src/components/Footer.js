@@ -20,7 +20,7 @@ const Footer = () => {
           rel="noopener"
           underline="none"
           fontWeight={700}
-          className="umami--pointerdown--paypal"
+          data-umami-event="paypal"
         >
           PayPal
         </Link>{" "}
@@ -32,7 +32,7 @@ const Footer = () => {
           rel="noopener"
           underline="none"
           fontWeight={700}
-          className="umami--pointerdown--github"
+          data-umami-event="github"
         >
           GitHub
         </Link>{" "}
@@ -43,7 +43,7 @@ const Footer = () => {
           rel="noopener"
           underline="none"
           fontWeight={700}
-          className="umami--pointerdown--github-issue"
+          data-umami-event="github-issue"
         >
           Report a bug
         </Link>{" "}
@@ -54,7 +54,7 @@ const Footer = () => {
           rel="noopener"
           underline="none"
           fontWeight={700}
-          className="umami--pointerdown--twitter"
+          data-umami-event="twitter"
         >
           Tweet Me
         </Link>
@@ -67,7 +67,7 @@ const Footer = () => {
           rel="noopener"
           underline="none"
           fontWeight={700}
-          className="umami--pointerdown--opencritic-footer"
+          data-umami-event="opencritic-footer"
         >
           OpenCritic
         </Link>
@@ -80,7 +80,7 @@ const Footer = () => {
           rel="noopener"
           underline="none"
           fontWeight={700}
-          className="umami--pointerdown--hltb-footer"
+          data-umami-event="hltb-footer"
         >
           HowLongToBeat
         </Link>
