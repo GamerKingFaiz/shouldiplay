@@ -46,6 +46,10 @@ const App = () => {
           if (response.ok) {
             return response.json();
           }
+          if (response.status === 404) {
+            handleSearch(value); // Try again
+            throw new Error(response.status)
+          }
           if (response.status === 429) {
             setLoading(false);
             setRateLimited(true);
