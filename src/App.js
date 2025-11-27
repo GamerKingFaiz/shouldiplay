@@ -9,7 +9,12 @@ import {
   useTheme,
 } from "@mui/material";
 import React, { useCallback, useEffect, useState } from "react";
-import { NumberParam, useQueryParam, withDefault } from "use-query-params";
+import {
+  NumberParam,
+  StringParam,
+  useQueryParams,
+  withDefault,
+} from "use-query-params";
 import Footer from "./components/Footer";
 import GameBox from "./components/GameBox";
 import GameBoxSkeleton from "./components/GameBoxSkeleton";
@@ -25,7 +30,10 @@ const App = () => {
   const [rateLimited, setRateLimited] = useState(Boolean);
   const [searchResults, setSearchResults] = useState([]);
   const [pageCount, setPageCount] = useState(1);
-  const [page, setPage] = useQueryParam("page", withDefault(NumberParam, 1));
+  const [query, setQuery] = useQueryParams({
+    search: StringParam,
+    page: withDefault(NumberParam, 1),
+  });
 
   // https://github.com/pbeshai/use-query-params/blob/master/examples/no-router/src/App.js
   const [, forceUpdate] = React.useReducer((x) => x + 1, 0);
@@ -41,14 +49,14 @@ const App = () => {
       setLoading(true);
       setRateLimited(false);
       setSearchResults([]);
-      fetch(`${API_URL}/hltb/${value.toLowerCase()}?page=${page}`)
+      fetch(`${API_URL}/hltb/${value.toLowerCase()}?page=${query.page}`)
         .then((response) => {
           if (response.ok) {
             return response.json();
           }
           if (response.status === 404) {
             handleSearch(value); // Try again
-            throw new Error(response.status)
+            throw new Error(response.status);
           }
           if (response.status === 429) {
             setLoading(false);
@@ -63,11 +71,11 @@ const App = () => {
         })
         .catch((error) => {});
     },
-    [page]
+    [query.page]
   );
 
   const handleChange = (event, value) => {
-    setPage(value);
+    setQuery({ ...query, page: value });
   };
 
   return (
@@ -82,7 +90,11 @@ const App = () => {
       >
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <Logo />
-          <SearchBar handleSearch={handleSearch} setPage={setPage} />
+          <SearchBar
+            handleSearch={handleSearch}
+            query={query}
+            setQuery={setQuery}
+          />
         </Toolbar>
       </AppBar>
 
@@ -118,7 +130,7 @@ const App = () => {
       <Pagination
         count={pageCount}
         size={mobile ? "small" : ""}
-        page={page}
+        page={query.page}
         onChange={handleChange}
         sx={{ mb: 2, alignSelf: "center" }}
       />
