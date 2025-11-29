@@ -23,7 +23,9 @@ const GameBox = ({ data }) => {
   useEffect(() => {
     setLoading(true);
     const cleanName = stripName(data.game_name);
-    fetch(`${API_URL}/opencritic/${cleanName}`)
+    fetch(`${API_URL}/opencritic/${cleanName}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    })
       .then((response) => response.json())
       .then((json) => {
         if (json) {

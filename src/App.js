@@ -45,31 +45,42 @@ const App = () => {
   }, []);
 
   const handleSearch = useCallback(
-    (value) => {
+    async (value) => {
       setLoading(true);
       setRateLimited(false);
       setSearchResults([]);
-      fetch(`${API_URL}/hltb/${value.toLowerCase()}?page=${query.page}`)
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
+      try {
+        if (!localStorage.getItem("token")) {
+          const tokenResp = await fetch(`${API_URL}/init`);
+          const tokenData = await tokenResp.json();
+          localStorage.setItem("token", tokenData.token);
+        }
+        const hltbResp = await fetch(
+          `${API_URL}/hltb/${value.toLowerCase()}?page=${query.page}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
           }
-          if (response.status === 404) {
-            handleSearch(value); // Try again
-            throw new Error(response.status);
-          }
-          if (response.status === 429) {
-            setLoading(false);
-            setRateLimited(true);
-            throw new Error(response.status);
-          }
-        })
-        .then((result) => {
+        );
+
+        if (hltbResp.status === 401) {
+          localStorage.removeItem("token");
+          handleSearch(value); // Try again
+        }
+        if (hltbResp.status === 404) {
+          handleSearch(value); // Try again
+        }
+        if (hltbResp.status === 429) {
           setLoading(false);
-          setSearchResults(result.data);
-          setPageCount(result.pageTotal);
-        })
-        .catch((error) => {});
+          setRateLimited(true);
+        }
+
+        const result = await hltbResp.json();
+        setLoading(false);
+        setSearchResults(result.data);
+        setPageCount(result.pageTotal);
+      } catch (error) {}
     },
     [query.page]
   );
