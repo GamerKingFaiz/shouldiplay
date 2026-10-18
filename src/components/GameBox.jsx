@@ -44,6 +44,7 @@ const GameBox = ({ data }) => {
         component="img"
         image={`https://howlongtobeat.com/games/${data.game_image}`}
         alt="Game cover"
+        loading="lazy"
         sx={classes.cardMedia}
       />
       <CardContent sx={classes.cardContent}>
