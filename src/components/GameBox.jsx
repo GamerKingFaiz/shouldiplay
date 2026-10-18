@@ -39,16 +39,16 @@ const GameBox = ({ data }) => {
   }, [data.game_name]);
 
   return (
-    <Card className={classes.card}>
+    <Card sx={classes.card}>
       <CardMedia
         component="img"
         image={`https://howlongtobeat.com/games/${data.game_image}`}
         alt="Game cover"
-        className={classes.cardMedia}
+        sx={classes.cardMedia}
       />
-      <CardContent className={classes.cardContent}>
+      <CardContent sx={classes.cardContent}>
         {/* Title */}
-        <Typography className={classes.title}>{data.game_name}</Typography>
+        <Typography sx={classes.title}>{data.game_name}</Typography>
 
         {/* Rating and Times to beat */}
         <Box
@@ -59,11 +59,11 @@ const GameBox = ({ data }) => {
           width={{ xs: "100%", sm: "432px" }}
         >
           {loading ? (
-            <Skeleton className={classes.skeleton} />
+            <Skeleton sx={classes.skeleton} />
           ) : (
             <GameRating matched={gameMatched} ocgd={openCriticGameData} />
           )}
-          <Box className={classes.hoursCollection}>
+          <Box sx={classes.hoursCollection}>
             {["game", "compil", "dlc"].includes(data.game_type) ? (
               // Normal game hour numbers
               <>

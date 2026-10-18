@@ -9,39 +9,13 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { makeStyles } from "@mui/styles";
 import React, { useEffect, useState } from "react";
-
-// Class names from https://stackoverflow.com/questions/58963242/change-border-color-on-material-ui-textfield
-const useStyles = makeStyles((theme) => ({
-  form: {
-    margin: "16px 0px 16px 16px",
-    minWidth: "30%",
-    "& .MuiInputLabel-outlined.Mui-focused, .MuiInputLabel-outlined": {
-      marginLeft: -8,
-      [theme.breakpoints.down("mobileCard")]: {
-        marginLeft: 0,
-      },
-    },
-    "& .MuiInputLabel-outlined.Mui-focused": {
-      color: "#DCDCFF",
-    },
-    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-      borderColor: "#DCDCFF",
-    },
-    "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-      borderColor: "rgba(255, 255, 255, 0.50)",
-    },
-  },
-}));
 
 const SearchBar = ({ handleSearch, query, setQuery }) => {
   const [searchInput, setSearchInput] = useState("");
 
   const theme = useTheme();
   const mobile = useMediaQuery(theme.breakpoints.down("mobileCard"));
-
-  const classes = useStyles();
 
   // Displays initial set of games on page load and whenever search is performed
   useEffect(() => {
@@ -62,7 +36,29 @@ const SearchBar = ({ handleSearch, query, setQuery }) => {
   };
 
   return (
-    <FormControl variant="outlined" className={classes.form}>
+    <FormControl
+      variant="outlined"
+      sx={{
+        margin: "16px 0px 16px 16px",
+        minWidth: "30%",
+        "& .MuiInputLabel-outlined.Mui-focused, & .MuiInputLabel-outlined": {
+          marginLeft: "-8px",
+          [theme.breakpoints.down("mobileCard")]: {
+            marginLeft: 0,
+          },
+        },
+        "& .MuiInputLabel-outlined.Mui-focused": {
+          color: "#DCDCFF",
+        },
+        "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+          {
+            borderColor: "#DCDCFF",
+          },
+        "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+          borderColor: "rgba(255, 255, 255, 0.50)",
+        },
+      }}
+    >
       <InputLabel
         htmlFor="sipSearchbar"
         sx={{
