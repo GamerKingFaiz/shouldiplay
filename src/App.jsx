@@ -86,7 +86,10 @@ const App = () => {
   );
 
   const handleChange = (event, value) => {
+    if (value === query.page) return;
+
     setQuery({ ...query, page: value });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
