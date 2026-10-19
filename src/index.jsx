@@ -1,5 +1,5 @@
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
-import React from "react";
+import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { QueryParamProvider } from "use-query-params";
 import App from "./App";
@@ -47,12 +47,12 @@ const theme = createTheme({
 });
 
 createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  <StrictMode>
     <ThemeProvider theme={theme}>
       <QueryParamProvider history={history}>
         <CssBaseline />
         <App />
       </QueryParamProvider>
     </ThemeProvider>
-  </React.StrictMode>
+  </StrictMode>
 );

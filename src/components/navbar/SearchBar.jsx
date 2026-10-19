@@ -9,7 +9,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const SearchBar = ({ handleSearch, query, setQuery }) => {
   const [searchInput, setSearchInput] = useState("");

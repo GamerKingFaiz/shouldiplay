@@ -1,7 +1,6 @@
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, Typography, useMediaQuery, useTheme } from "@mui/material";
-import React from "react";
 
 const Footer = () => {
   const theme = useTheme();

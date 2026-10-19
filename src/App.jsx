@@ -8,7 +8,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useReducer, useState } from "react";
 import {
   NumberParam,
   StringParam,
@@ -36,7 +36,7 @@ const App = () => {
   });
 
   // https://github.com/pbeshai/use-query-params/blob/master/examples/no-router/src/App.js
-  const [, forceUpdate] = React.useReducer((x) => x + 1, 0);
+  const [, forceUpdate] = useReducer((x) => x + 1, 0);
   useEffect(() => {
     // listen for changes to the URL and force the app to re-render
     history.listen(() => {

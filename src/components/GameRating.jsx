@@ -1,5 +1,4 @@
 import { Box, Link, Typography, useMediaQuery, useTheme } from "@mui/material";
-import React from "react";
 import {
   buildStyles,
   CircularProgressbarWithChildren,
