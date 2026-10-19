@@ -20,9 +20,6 @@ const SearchBar = ({ handleSearch, query, setQuery }) => {
   // Displays initial set of games on page load and whenever search is performed
   useEffect(() => {
     query.search ? handleSearch(query.search) : handleSearch("");
-    document.title = query.search
-      ? `${query.search} - Should I Play This?`
-      : "Should I Play This?";
   }, [query.search, handleSearch]);
 
   const handleClick = () => {
@@ -36,60 +33,67 @@ const SearchBar = ({ handleSearch, query, setQuery }) => {
   };
 
   return (
-    <FormControl
-      variant="outlined"
-      sx={{
-        margin: "16px 0px 16px 16px",
-        minWidth: "30%",
-        "& .MuiInputLabel-outlined.Mui-focused, & .MuiInputLabel-outlined": {
-          marginLeft: "-8px",
-          [theme.breakpoints.down("mobileCard")]: {
-            marginLeft: 0,
-          },
-        },
-        "& .MuiInputLabel-outlined.Mui-focused": {
-          color: "#DCDCFF",
-        },
-        "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-          {
-            borderColor: "#DCDCFF",
-          },
-        "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-          borderColor: "rgba(255, 255, 255, 0.50)",
-        },
-      }}
-    >
-      <InputLabel
-        htmlFor="sipSearchbar"
+    <>
+      <title>
+        {query.search
+          ? `${query.search} - Should I Play This?`
+          : "Should I Play This?"}
+      </title>
+      <FormControl
+        variant="outlined"
         sx={{
-          color: "rgba(220, 220, 255, .7)",
-          fontSize: mobile ? 14 : "1rem",
-          lineHeight: mobile ? "1.6em" : "1.4375em",
+          margin: "16px 0px 16px 16px",
+          minWidth: "30%",
+          "& .MuiInputLabel-outlined.Mui-focused, & .MuiInputLabel-outlined": {
+            marginLeft: "-8px",
+            [theme.breakpoints.down("mobileCard")]: {
+              marginLeft: 0,
+            },
+          },
+          "& .MuiInputLabel-outlined.Mui-focused": {
+            color: "#DCDCFF",
+          },
+          "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+            {
+              borderColor: "#DCDCFF",
+            },
+          "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+            borderColor: "rgba(255, 255, 255, 0.50)",
+          },
         }}
       >
-        Search for games...
-      </InputLabel>
-      <OutlinedInput
-        id="sipSearchbar"
-        type="search"
-        sx={{ borderRadius: "60px", marginLeft: -1, paddingRight: 3 }}
-        defaultValue={query.search}
-        onKeyDown={handleKeyDown}
-        onChange={(e) => setSearchInput(e.target.value)}
-        label="Search for games..."
-        endAdornment={
-          <InputAdornment position="end">
-            <IconButton
-              aria-label="search for games"
-              edge="end"
-              onClick={handleClick}
-            >
-              <FontAwesomeIcon icon={faSearch} color="#C8D4FF" />
-            </IconButton>
-          </InputAdornment>
-        }
-      />
-    </FormControl>
+        <InputLabel
+          htmlFor="sipSearchbar"
+          sx={{
+            color: "rgba(220, 220, 255, .7)",
+            fontSize: mobile ? 14 : "1rem",
+            lineHeight: mobile ? "1.6em" : "1.4375em",
+          }}
+        >
+          Search for games...
+        </InputLabel>
+        <OutlinedInput
+          id="sipSearchbar"
+          type="search"
+          sx={{ borderRadius: "60px", marginLeft: -1, paddingRight: 3 }}
+          defaultValue={query.search}
+          onKeyDown={handleKeyDown}
+          onChange={(e) => setSearchInput(e.target.value)}
+          label="Search for games..."
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="search for games"
+                edge="end"
+                onClick={handleClick}
+              >
+                <FontAwesomeIcon icon={faSearch} color="#C8D4FF" />
+              </IconButton>
+            </InputAdornment>
+          }
+        />
+      </FormControl>
+    </>
   );
 };
 
